@@ -1,4 +1,4 @@
-package stack;
+package stack.expression;
 
 import java.util.*;
 
