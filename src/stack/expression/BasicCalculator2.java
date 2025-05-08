@@ -37,23 +37,22 @@ public class BasicCalculator2 {
     	
         for(int i = 0; i < s.length(); i++) {
         	char cur = s.charAt(i);
-        	
-        	if (cur == ' ') continue;
-        	
+
         	if(Character.isDigit(cur)) {  // digit
         		num = num * 10 + (cur -'0');
         	} 
-        	
+
         	// process the non-digit, or the last num that does not have any sign after it.
-        	if (!Character.isDigit(cur) || i == s.length() - 1){ 
-        		// we are currently working on the previous sign,
-        		// Intuition: When we hit a sign we process the previous sign and 
-        		// update previous sign by the current sign.
+        	if ((!Character.isDigit(cur) && cur != ' ') || i == s.length() - 1){ 
+
         		if(prevSign == '+') stack.push(num);
         		else if (prevSign == '-') stack.push(-num);
         		else if (prevSign == '*') stack.push(stack.pop() * num);
         		else if (prevSign == '/') stack.push(stack.pop() / num);
-        		
+
+        		// we are currently working on the previous sign,
+        		// Intuition: When we hit a sign we process the previous sign and 
+        		// update previous sign by the current sign.
         		prevSign = cur; // set the current sign as previous sign
         		// since we just processed an operator now set num to zero, 
         		// cause we are going to see a new number after this operator
@@ -67,8 +66,10 @@ public class BasicCalculator2 {
     }
 	public static void main(String a[]) {
 		BasicCalculator2 ob = new BasicCalculator2();
-		String s = "3+2*2";
+//		String s = "3+2*2";
 //		Output: 7
+		
+		String s = " 3/2 ";
 		
 		System.out.println(ob.calculate(s));
 		
