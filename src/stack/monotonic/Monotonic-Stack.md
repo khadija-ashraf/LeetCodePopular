@@ -46,22 +46,31 @@ if(Character.isDigit(cur)) {  // digit
    Another intuition is, to process an operation from left to right we need two numbers. but when we hit an operator we only seen the first number. the second number is yet to come. So, the trick is don't compute an operator until you reach to the next operator in the expression. Only when we reach to an the next operator  we see both the numbers involving that operator. For example, 5 + 9 / 3; until we reach to '/' we don't get to see 5 , and 3.
 
 ```java
-    char prevSign = '+';
-    // process the non-digit, or the last num that does not have any sign after it.
-    if (!Character.isDigit(cur) || i == s.length() - 1){ 
-        // we are currently working on the previous sign,
-        // Intuition: When we hit a sign we process the previous sign and 
-        // update previous sign by the current sign.
-        if(prevSign == '+') stack.push(num);
-        else if (prevSign == '-') stack.push(-num);
-        else if (prevSign == '*') stack.push(stack.pop() * num);
-        else if (prevSign == '/') stack.push(stack.pop() / num);
-        
-        prevSign = cur; // set the current sign as previous sign
-        // since we just processed an operator now set num to zero, 
-        // cause we are going to see a new number after this operator
-        num = 0; 
-    }
+   char prevSign = '+'; 
+   for(int i = 0; i < s.length(); i++) {
+      char cur = s.charAt(i);
+      
+      if(Character.isDigit(cur)) {  // digit
+         num = num * 10 + (cur -'0');
+      } 
+      
+      // process the non-digit, or the last num that does not have any sign after it.
+      if ((!Character.isDigit(cur) && cur != ' ') || i == s.length() - 1){ 
+      
+         if(prevSign == '+') stack.push(num);
+         else if (prevSign == '-') stack.push(-num);
+         else if (prevSign == '*') stack.push(stack.pop() * num);
+         else if (prevSign == '/') stack.push(stack.pop() / num);
+      
+         // we are currently working on the previous sign,
+         // Intuition: When we hit a sign we process the previous sign and 
+         // update previous sign by the current sign.
+         prevSign = cur; // set the current sign as previous sign
+         // since we just processed an operator now set num to zero, 
+         // cause we are going to see a new number after this operator
+         num = 0; 
+      }
+   }
 ```
   We evaluate starting with '+' sign because positive sign is imperative in the start of every expression. Even if an expression starts with a negative (-) sign it can incorporate a positive '+' sign by multiplying (+1). For example (+1) * (-3) = -3.
 
