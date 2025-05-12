@@ -1,3 +1,110 @@
+⸻
+
+🧩 Common Hash Table Patterns
+
+⸻
+
+1. ✅ Frequency Counting
+
+Use a HashMap or HashSet to count the occurrences of elements.
+    •	🔹 Examples:
+    •	242. Valid Anagram
+    •	387. First Unique Character in a String
+    •	451. Sort Characters by Frequency
+    •	383. Ransom Note
+
+⸻
+
+2. 🚫 Detect Duplicates
+
+Use a HashSet to check for duplicates quickly.
+	•	🔹 Examples:
+	•	217. Contains Duplicate
+	•	219. Contains Duplicate II
+	•	220. Contains Duplicate III
+
+⸻
+
+3. 🧠 Two Sum / Complement Lookup
+
+Use a HashMap to store previously seen numbers and check if their complement exists.
+	•	🔹 Examples:
+	•	1. Two Sum
+	•	167. Two Sum II - Input Array Is Sorted (uses two-pointer)
+	•	653. Two Sum IV - Input is a BST
+
+⸻
+
+4. 🔄 Group by Frequency / Pattern
+
+Use a Map<String, List<String>> to group elements by some computed key (e.g., anagram signature).
+	•	🔹 Examples:
+	•	49. Group Anagrams
+	•	347. Top K Frequent Elements
+	•	451. Sort Characters by Frequency
+
+⸻
+
+5. 🪞 Sliding Window + HashMap
+
+Use a window to track counts of elements or characters dynamically.
+	•	🔹 Examples:
+	•	3. Longest Substring Without Repeating Characters
+	•	76. Minimum Window Substring
+	•	567. Permutation in String
+
+⸻
+
+6. ➕ Prefix Sum with HashMap
+
+Track the sum of elements and use a map to check if a required sum has occurred before.
+	•	🔹 Examples:
+	•	560. Subarray Sum Equals K
+	•	974. Subarray Sums Divisible by K
+	•	1248. Count Number of Nice Subarrays
+
+⸻
+
+7. 🌐 Custom Hashing / Coordinate Hashing
+
+Map coordinates, strings, or custom objects to values.
+	•	🔹 Examples:
+	•	149. Max Points on a Line
+	•	981. Time Based Key-Value Store
+	•	36. Valid Sudoku
+
+⸻
+
+8. 🌲 Simulate Data Structures
+
+Use hash tables to simulate LRU caches or complex key-value structures.
+	•	🔹 Examples:
+	•	146. LRU Cache
+	•	380. Insert Delete GetRandom O(1)
+	•	355. Design Twitter
+
+⸻
+
+9. 🔍 Word Pattern Matching
+
+Track character/word mappings using two hash maps or one with value set checks.
+	•	🔹 Examples:
+	•	290. Word Pattern
+	•	205. Isomorphic Strings
+	•	890. Find and Replace Pattern
+
+⸻
+
+🧠 Pro Tip:
+
+When solving a problem, ask yourself:
+	•	Can I track frequencies?
+	•	Can I use a set to detect duplicates?
+	•	Can I map a key to a value (like index, frequency, etc.)?
+	•	Can I reduce time complexity using hashmap lookups?
+
+⸻
+
 
 ### Beginner-Friendly Hash Table Problems
     1.	Two Sum
