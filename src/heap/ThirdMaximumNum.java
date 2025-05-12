@@ -17,11 +17,11 @@ public class ThirdMaximumNum {
     		if(set.contains(n)) continue;
     		
     		set.add(n);
-    		
-    		if(minHeap.size() > 3) {
+    		minHeap.offer(n);
+
+    		if(minHeap.size() > 3) { // remove the smallest of the 4
     			minHeap.poll();
     		}
-    		minHeap.offer(n);
     	}
     	
     	if(minHeap.size() < 3) {
@@ -33,7 +33,7 @@ public class ThirdMaximumNum {
     }
 	public static void main(String[] args) {
 		ThirdMaximumNum ob = new ThirdMaximumNum();
-    	int[] nums = {3,2,1,1,1,1};
+    	int[] nums = {1,2,2,5,3,5};
     	System.out.println(ob.thirdMax(nums));
 
 	}
