@@ -76,6 +76,38 @@ public class Solution {
     }
 }
 ```
+Example: Input: [1, 2, 2, 5, 3, 5]
+
+    Initial values:
+    seen = {}
+    maxHeap = []
+    
+    Process each number:
+    1: not in set
+      seen = {1}
+      heap = [1]
+    2: not in set
+      seen = {1, 2}
+      heap = [2, 1]
+    2: already seen → skip
+    5: not in set
+      seen = {1, 2, 5}
+      heap = [5, 1, 2]
+    3: not in set
+      seen = {1, 2, 3, 5}
+      heap = [5, 3, 2, 1]
+    5: already seen → skip
+
+ Extract Third Maximum:
+
+    Now we pop from the heap 3 times to get the third distinct max:
+    	1.	heap.poll() → 5
+    heap = [3, 1, 2]
+    	2.	heap.poll() → 3
+    heap = [2, 1]
+    	3.	heap.poll() → 2 ← This is the third maximum.
+
+Output: 2
 
 ### Better Approach: Min Heap of Size 3
 
@@ -107,6 +139,38 @@ public int thirdMax(int[] nums) {
     	return minHeap.peek();
 }
 ```
+
+Dry Run:
+
+    Initial:
+    	•	seen = {}
+    	•	minHeap = []
+    
+    Step-by-step:
+      1:
+          Add to seen = {1}
+          Heap = [1]
+      2:
+          Add to seen = {1, 2}
+          Heap = [1, 2]
+      2:
+          Already seen → skip
+      5:
+          Add to seen = {1, 2, 5}
+          Heap = [1, 2, 5]
+      3:
+          Add to seen = {1, 2, 3, 5}
+          Heap = [1, 2, 5, 3] → size is 4, so poll() smallest → remove 1
+          Heap = [2, 3, 5]
+      5:  Already seen → skip
+
+
+Final Heap:
+* Heap has 3 elements: [2, 3, 5]
+* So, return minHeap.peek() = 2 ← Third maximum
+
+Output: 2
+ 
 Approach	| Time Complexity	|Space Complexity
 ---|---|---|
 Max Heap	|O(n log n)	|O(n)
