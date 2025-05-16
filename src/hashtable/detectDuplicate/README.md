@@ -196,10 +196,15 @@ nums[j] - nums[i] <= valueDiff =>  nums[i] - valueDiff >= nums[j]
 
 This `nums[i]` is the current num and the `nums[j]`s is a num already in the window. 
 
-> Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`.
-> This is known as a range query — and solving this efficiently is what makes this problem tricky.
+> Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. This is known as a range query.
 
-			
+   <ins>What is a Range Query?</ins>
+   
+   You’re iterating through nums, and for every nums[i], you want to ask:
+
+“Is there any number in the previous k elements such that |nums[i] - that_number| <= t?”
+
+This can be rewritten as:
 
 
 
