@@ -203,13 +203,16 @@ nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff
 Here `nums[i]` is the current num and the `nums[j]` is a num already in the window. 
 Now we can read the above line like:
 
-> Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. This is known as a range query.
+	Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. 
+ 	This is known as a range query.
 
 <ins>__What is a Range Query?__</ins>
 
 We’re iterating through nums, and for every nums[i], we want to ask:
 
-“Is there any number among the previous elements of the window such that `nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`”
+> “Is there any number among the previous elements of the window such that,
+
+> `nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`”
 
 That’s a range query: we’re searching for any `nums[j]` in a window (set of numbers) that falls in a numeric range centered at `nums[i]`.
 
