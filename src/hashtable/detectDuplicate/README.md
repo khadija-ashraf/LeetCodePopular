@@ -225,17 +225,16 @@ The `ceiling()` method of `java.util.TreeSet<E>` returns the least element in th
 ```java
 Integer justgrater = window.ceiling(lowerBoundery);
 ```
-`ceiling()` is a O(log n) operation in a TreeSet. 
-
-Java’s TreeSet is a Balanced BST, which maintains sorted order. It allows we to perform a range query like:
+`ceiling()` is a O(log n) operation in a TreeSet. Java’s TreeSet is a Balanced BST, which maintains sorted order. It allows we to perform a range query like:
 
 > __But, why a HashSet Doesn’t Work?!__
 
-	A HashSet lets us check if a number exists, not if any number exists within a range. No way to ask: “Any number between a and b?”
-	```java
-	Set<Integer> set = new HashSet<>();
-	set.contains(x); // Only exact match
-	```
+A HashSet lets us check if a number exists, not if any number exists within a range. No way to ask: “Any number between a and b?”
+
+```java
+Set<Integer> set = new HashSet<>();
+set.contains(x); // Only exact match
+```
 
 
 ```java
