@@ -61,7 +61,7 @@ __HashSet Based Approach__: To find duplicates from a given set of inputs, we ca
    Because we are finding a duplicate and don't need the frequency count like we get from a hashmap, so HashSet is a better datastructure. 
    
    Before adding a new item check if the item is already in the HashSet. If yes return 'true' early, otherwise keep adding elements until we reach to the 
-   end of the input list. If we reach end that means we did not find any duplicatee sp return 'false'.
+   end of the input list. If we reach end that means we did not find any duplicates so return 'false'.
 
 ```java
 public boolean containsDuplicate(int[] nums) {
@@ -116,13 +116,13 @@ Time & Space:
   
   But wait, isn't a HashSet un-ordered?! then how can we trim it from the left? The answer is we keep track of the sliding window boundary
   with two indices, the 'left' and 'right'. Keep adding elements to the HashSet from the right using the right index, 
-  and keep triming from the left side using the left index, one index at a time.
+  and keep trimming from the left side using the left index, one index at a time.
 
-  This is a sliding window problem. Please refer to my sliding window readme for an in-depth demostrations.
+  This is a sliding window problem. Please refer to my sliding window readme for an in-depth demonstrations.
   
   Before adding a new item check if the item is already in the HashSet. If yes return 'true' early, 
   otherwise keep adding elements to the HashSet until we reach to the end of the input list. 
-  If we reach end that means we did not find any duplicatee sp return 'false'.
+  If we reach end that means we did not find any duplicates so return 'false'.
 
 ```java
 public boolean containsNearbyDuplicate(int[] nums, int k) {
@@ -189,28 +189,32 @@ Contains Duplicate III is a progression of the proble 219. Contians Duplicate II
 problem.
      
 
-Now to understance the `valueDiff` concept we need to find what this `abs(nums[i] - nums[j]) <= valueDiff` line indicates. We can re-write the *abs()* function like below,
+Now to understand the `valueDiff` concept we need to find what this `abs(nums[i] - nums[j]) <= valueDiff` line indicates. We can re-write the *abs()* function like below,
 			
 ```
 nums[i] - nums[j] <= valueDiff  => nums[i] - valueDiff <= nums[j] 
 nums[j] - nums[i] <= valueDiff =>  nums[i] + valueDiff >= nums[j]
 ```
 This can be rewritten as: 
-` nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`
-Here `nums[i]` is the current num and the `nums[j]`s is a num already in the window. 
+
+``` 
+nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff
+```
+Here `nums[i]` is the current num and the `nums[j]` is a num already in the window. 
+Now we can read the above line like:
 
 > Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. This is known as a range query.
 
-   <ins>What is a Range Query?</ins>
-   
-   we’re iterating through nums, and for every nums[i], we want to ask:
+<ins>__What is a Range Query?__</ins>
+
+We’re iterating through nums, and for every nums[i], we want to ask:
 
 “Is there any number among the previous elements of the window such that `nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`”
 
-That’s a range query: we’re searching for any nums[j] in a window (set of numbers) that falls in a numeric range centered at nums[i].
+That’s a range query: we’re searching for any `nums[j]` in a window (set of numbers) that falls in a numeric range centered at `nums[i]`.
 
 
-__Using TreeSet (Java) to Perform a Range Query__
+<ins> __Using TreeSet (Java) to Perform a Range Query__</ins>
 
 We use TreeSet for storing the window elements. It is sorted in natural order.
 
@@ -218,30 +222,52 @@ The `ceiling()` method of `java.util.TreeSet<E>` returns the least element in th
 ```java
 Integer justgrater = window.ceiling(lowerBoundery);
 ```
-`ceiling()` is a O(log n) in a TreeSet because it uses a balanced binary search tree (Red-Black Tree).
+`ceiling()` is a O(log n) operation in a TreeSet. 
 
 Java’s TreeSet is a Balanced BST, which maintains sorted order. It allows we to perform a range query like:
 
+> __But, why a HashSet Doesn’t Work?!__
+
+	A HashSet lets us check if a number exists, not if any number exists within a range. No way to ask: “Any number between a and b?”
+	```java
+	Set<Integer> set = new HashSet<>();
+	set.contains(x); // Only exact match
+	```
+
+
 ```java
-//[nums[i] - valueDiff, nums[i] + valueDiff] 
-int lowerBoundery = nums[i]  - valueDiff;
-int upperBoundary = nums[i]  + valueDiff;
+public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
+	if(indexDiff < 1 || indexDiff > nums.length) return false;
+	TreeSet<Integer> window = new TreeSet<>();  // window of size indexDiff
 
-TreeSet<Long> window = new TreeSet<>();
-Integer justgrater = window.ceiling(lowerBoundery); // Find smallest ≥ nums[i] - valueDiff
-
-if(justgrater != null 
-	&& justgrater >= lowerBoundery
-	&& justgrater <= upperBoundary) {
-	return true;
+	int left = 0;
+	for(int i = 0; i < nums.length; i++) {
+		int lowerBoundery = nums[i] - valueDiff;
+		int upperBoundary = nums[i] + valueDiff;
+		
+		Integer num_j = window.ceiling(lowerBoundery);
+		
+		// there is at least one item in the window that 
+		// is >= lowerbounday <= upperbounday. 
+		// so the current num[i] is in the range of the valueDiff 
+		// with another item num[j] in the window.
+		if(num_j != null 
+				&& num_j >= lowerBoundery
+				&& num_j <= upperBoundary) {
+			return true;
+		}
+		window.add(nums[i]);
+		
+		while(window.size() > indexDiff) {
+			window.remove(nums[left]);
+			left++;
+		}
+	}
+	return false;
 }
 ```
 
-__But, why a HashSet Doesn’t Work?!__
+We find a `num_j` from the window by calling `ceiling()`. This 'num_j' is the smallest number that is just grater than the lowerboundary specified. Next, we check if this `num_j` is also <= than the upperboundary. If yes, therefore, num_j resides between the lower and upper boundary.
+Since finding only a single pair of (nums[i], nums[j]) is enough according to the problem description so return true immediately. Otherwise, if we reach to the end of the input set therefore, we did NOT find any pair in the range, so return false.
 
-A HashSet lets us check if a number exists, not if any number exists within a range. No way to ask: “Any number between a and b?”
-```java
-Set<Integer> set = new HashSet<>();
-set.contains(x); // Only exact match
-```
-
+----
