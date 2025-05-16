@@ -31,6 +31,8 @@ You can return the answer in any order.
 
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
+---
+
 ### Solution:
 
 <ins>__Brute Force Approach:__</ins>	Check every possible pair of numbers in the array. It tries every possible combination without any optimization. It’s the most straightforward but least efficient solution.
@@ -90,7 +92,7 @@ Time & Space:
    * Space: O(n)
 
 ----
-[167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/)
+### [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/)
 
 Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
 
