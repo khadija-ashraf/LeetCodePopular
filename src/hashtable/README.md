@@ -1,4 +1,6 @@
-⸻
+## HashTable/ HashMap/ HashSet:
+
+This is the most common data structure used in the interview questions. Therefore, we have many patterns to cover in under HashTable. Below are the pattern categories.
 
 🧩 Common Hash Table Patterns
 
