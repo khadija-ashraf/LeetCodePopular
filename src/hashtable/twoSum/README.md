@@ -33,12 +33,11 @@ Follow-up: Can you come up with an algorithm that is less than O(n2) time comple
 
 ### Solution:
 
-__Brute Force Approach:__	Check every possible pair of numbers in the array.
-
+<ins>__Brute Force Approach:__</ins>	Check every possible pair of numbers in the array. It tries every possible combination without any optimization. It’s the most straightforward but least efficient solution.
 
 ```java
 
-public int[] twoSum(int[] nums, int target) {
+public int[] twoSumBruteForce(int[] nums, int target) {
         int n = nums.length;
 
         for (int i = 0; i < n; i++) {
@@ -53,4 +52,37 @@ public int[] twoSum(int[] nums, int target) {
         // No match found (problem says there is one, so this won't be reached)
         return new int[] {};
     }
+```
+
+Time Complexity
+   * O(n²) — because for each element, you check every other element after it.
+
+Space Complexity
+   * O(1) — no extra data structures are used; just simple loops and basic variables.
+
+----
+
+<ins>__HashMap Approach (Optimized O(n) time):__</ins> 
+   * Keep adding every element in the hashmap. before adding the number though look for its complement, `(complement = target - nums[i])` already exists in the hashMap. It yes, we found the other number from our traversal already.
+
+```java
+
+public int[] twoSum(int[] nums, int target) {
+        if(nums.length <= 0) return new int[] {0,0};
+        int[] res = new int[2];
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < nums.length; i++) {
+        	int complement = target - nums[i];
+        	if(map.containsKey(complement)) {
+        		res[0] = map.get(complement);
+        		res[1] = i;
+        		return res;
+        	}
+        	map.putIfAbsent(nums[i], i);
+        }
+        return res;
+}
+```
+----
 
