@@ -3,28 +3,28 @@ package hashtable.twoSum;
 import java.util.*;
 
 public class TwoSum {
-//	public int[] twoSum(int[] nums, int target) {
-//        if(nums.length <= 0) return new int[] {0,0};
-//        
-//        int[] res = new int[2];
-//        
-//        Map<Integer, Integer> map = new HashMap<>();
-//        
-//        for(int i = 0; i < nums.length; i++) {
-//        	
-//        	int pair = target - nums[i];
-//        	
-//        	if(map.containsKey(pair)) {
-//        		res[0] = map.get(pair);
-//        		res[1] = i;
-//        		return res;
-//        	}
-//        	map.putIfAbsent(nums[i], i);
-//        }
-//        return res;
-//	}
-	
 	public int[] twoSum(int[] nums, int target) {
+        if(nums.length <= 0) return new int[] {0,0};
+        
+        int[] res = new int[2];
+        
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < nums.length; i++) {
+        	
+        	int complement = target - nums[i];
+        	
+        	if(map.containsKey(complement)) {
+        		res[0] = map.get(complement);
+        		res[1] = i;
+        		return res;
+        	}
+        	map.putIfAbsent(nums[i], i);
+        }
+        return res;
+	}
+	
+	public int[] twoSumBruteForce(int[] nums, int target) {
         int n = nums.length;
 
         for (int i = 0; i < n; i++) {
