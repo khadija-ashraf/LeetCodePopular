@@ -8,53 +8,31 @@ public class ContainsDuplicate3 {
 		
 		if(indexDiff < 1 || indexDiff > nums.length) return false;
 		
+		TreeSet<Integer> window = new TreeSet<>();	// window of size indexDiff
+
 		int left = 0;
-		
-		TreeSet<Integer> treeset = new TreeSet<>();	// window of size indexDiff
-		// we are using treeset because, all the elements in this 
-		// set are sorted. so we can search a num by range.
-		
-		for(int right = 0; right < nums.length; right++) {
-			int cur = nums[right];
+		for(int i = 0; i < nums.length; i++) {
 			
-			//[cur - valueDiff, cur + valueDiff] 
-			int lowerBoundery = cur - valueDiff;
-			int upperBoundary = cur + valueDiff;
+			int lowerBoundery = nums[i] - valueDiff;
+			int upperBoundary = nums[i] + valueDiff;
 			
-//			abs(nums[i] - nums[j]) <= valueDiff
+			Integer num_j = window.ceiling(lowerBoundery);
 			
-			// we can re-write the Math.abs() function like below,
-			
-//			nums[i] - nums[j] <= valueDiff  => nums[i] - valueDiff <= nums[j]
-//			nums[j] - nums[i] <= valueDiff =>  nums[i] - valueDiff >= nums[j]
-			
-			
-			// this nums[i] is the current num and the nums[j] is a num
-			// already in the window(treeset). 
-			
-			
-			
-			if(!treeset.isEmpty()) {
-				Integer justgrater = treeset.ceiling(lowerBoundery);
-				
-				// there is at least one item in the window that 
-				// is >= lowerbounday <= upperbounday. 
-				// so the current num is in the range of the valueDiff 
-				// with another item in the window.
-				if(justgrater != null 
-						&& justgrater >= lowerBoundery
-						&& justgrater <= upperBoundary) {
-					return true;
-				}
+			// there is at least one item in the window that 
+			// is >= lowerbounday <= upperbounday. 
+			// so the current num[i] is in the range of the valueDiff 
+			// with another item num[j] in the window.
+			if(num_j != null 
+					&& num_j >= lowerBoundery
+					&& num_j <= upperBoundary) {
+				return true;
 			}
-			treeset.add(cur);
+			window.add(nums[i]);
 			
-			while(treeset.size() > indexDiff) {
-				treeset.remove(nums[left]);
+			while(window.size() > indexDiff) {
+				window.remove(nums[left]);
 				left++;
 			}
-
-			
 		}
 		return false;
 	}
