@@ -84,5 +84,10 @@ public int[] twoSum(int[] nums, int target) {
         return res;
 }
 ```
+
+Time & Space:
+   * Time: O(n)
+   * Space: O(n)
+
 ----
 
