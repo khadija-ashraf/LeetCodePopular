@@ -130,6 +130,15 @@ Your solution must use only constant extra space.
 
 This problem is a prgression of 1.Two Sum. Here, the input is sorted. We can take this for our advantage and remove the need to using hashmap like we used in the Two Sum.
 
+We use two pointers (left, right) to keep track of a pair of indices, essentially a pair of values that might potentially sum up to the given target.
+
+<ins>__Two Pointer Approach:__</ins>
+   * initialze `left = 0`, `right = len(nums) - 1`
+   * until the left and right pointers does not intersect
+   * 	if `nums[left] + nums[right] > target`, that means the summation overflowed the target, so we will take a smaller value next time, to take the smaller value we go from right towards left, cause in the input smaller values are towards left, 
+   * 	else `if (nums[left] + nums[right] < target`, that means the summation is smaller than the target, so we will take a larger value next time, to take the larger value we go from left towards right of the input array, cause in the input array larger values are towards right.
+   * 	else, `nums[left] + nums[right] == target`, so we return the index pair (left, right).
+
 ```java
 
 public int[] twoSum(int[] nums, int target) {
@@ -151,9 +160,14 @@ public int[] twoSum(int[] nums, int target) {
         	}
         }
         return res;
-	}
+}
 ```
 
+
+Time & Space:
+   * Time: O(n)
+   * Space: O(1) - no extra space used, left, and right pointers takes constant spaces.
+---
 
 
 
