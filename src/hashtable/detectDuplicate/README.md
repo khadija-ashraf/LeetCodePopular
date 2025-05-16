@@ -150,7 +150,7 @@ Time & Space:
 
 ### [220. Contains Duplicate III](https://leetcode.com/problems/contains-duplicate-iii/description/)
 
-You are given an integer array nums and two integers indexDiff and valueDiff.
+we are given an integer array nums and two integers indexDiff and valueDiff.
 
 Find a pair of indices (i, j) such that:
 
@@ -190,21 +190,56 @@ Return true if such pair exists or false otherwise.
 Now to understance the valueDiff concept we need to find what this `abs(nums[i] - nums[j]) <= valueDiff` line indicates. We can re-write the *abs()* function like below,
 			
 ```
-nums[i] - nums[j] <= valueDiff  => nums[i] - valueDiff <= nums[j]
-nums[j] - nums[i] <= valueDiff =>  nums[i] - valueDiff >= nums[j]
+nums[i] - nums[j] <= valueDiff  => nums[i] - valueDiff <= nums[j] 
+nums[j] - nums[i] <= valueDiff =>  nums[i] + valueDiff >= nums[j]
 ```
-
+This can be rewritten as: 
+` nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`
 This `nums[i]` is the current num and the `nums[j]`s is a num already in the window. 
 
 > Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. This is known as a range query.
 
    <ins>What is a Range Query?</ins>
    
-   You’re iterating through nums, and for every nums[i], you want to ask:
+   we’re iterating through nums, and for every nums[i], we want to ask:
 
-“Is there any number in the previous k elements such that |nums[i] - that_number| <= t?”
+“Is there any number among the previous elements of the window such that `nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`”
 
-This can be rewritten as:
+That’s a range query: we’re searching for any nums[j] in a window (set of numbers) that falls in a numeric range centered at nums[i].
 
 
+__Using TreeSet (Java) to Perform a Range Query__
+
+We use TreeSet for storing the window elements. It is sorted in natural order.
+
+The `ceiling()` method of `java.util.TreeSet<E>` returns the least element in this set greater than or equal to the given element, or null if there is no such element. Syntax: 
+```java
+Integer justgrater = window.ceiling(lowerBoundery);
+```
+`ceiling()` is a O(log n) in a TreeSet because it uses a balanced binary search tree (Red-Black Tree).
+
+Java’s TreeSet is a Balanced BST, which maintains sorted order. It allows we to perform a range query like:
+
+```java
+//[nums[i] - valueDiff, nums[i] + valueDiff] 
+int lowerBoundery = nums[i]  - valueDiff;
+int upperBoundary = nums[i]  + valueDiff;
+
+TreeSet<Long> window = new TreeSet<>();
+Integer justgrater = window.ceiling(lowerBoundery); // Find smallest ≥ nums[i] - valueDiff
+
+if(justgrater != null 
+	&& justgrater >= lowerBoundery
+	&& justgrater <= upperBoundary) {
+	return true;
+}
+```
+
+__But, why a HashSet Doesn’t Work?!__
+
+A HashSet lets us check if a number exists, not if any number exists within a range. No way to ask: “Any number between a and b?”
+```java
+Set<Integer> set = new HashSet<>();
+set.contains(x); // Only exact match
+```
 
