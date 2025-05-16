@@ -185,9 +185,11 @@ Return true if such pair exists or false otherwise.
 
 ### Solution
 
-220. Contains Duplicate III is a progression of the proble 219. Contians Duplicate II. The indexDiff is the window size that was mention as 'k' in the problem 219. Without the valueDiff requirements the the 220 is similar to 219.
+Contains Duplicate III is a progression of the proble 219. Contians Duplicate II. The `indexDiff` is the window size that was mention as 'k' in the problem 219. Without the `valueDiff` requirements the the 220 is similar to 219. Therefore, contains Duplicate III is also a sliding window
+problem.
+     
 
-Now to understance the valueDiff concept we need to find what this `abs(nums[i] - nums[j]) <= valueDiff` line indicates. We can re-write the *abs()* function like below,
+Now to understance the `valueDiff` concept we need to find what this `abs(nums[i] - nums[j]) <= valueDiff` line indicates. We can re-write the *abs()* function like below,
 			
 ```
 nums[i] - nums[j] <= valueDiff  => nums[i] - valueDiff <= nums[j] 
@@ -195,7 +197,7 @@ nums[j] - nums[i] <= valueDiff =>  nums[i] + valueDiff >= nums[j]
 ```
 This can be rewritten as: 
 ` nums[i] - valueDiff <= nums[j] <= nums[i] + valueDiff`
-This `nums[i]` is the current num and the `nums[j]`s is a num already in the window. 
+Here `nums[i]` is the current num and the `nums[j]`s is a num already in the window. 
 
 > Check if there’s an element within `valueDiff` difference inside a sliding window of size `indexDiff`. This is known as a range query.
 
