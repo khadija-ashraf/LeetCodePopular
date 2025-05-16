@@ -272,4 +272,8 @@ public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valu
 We find a `num_j` from the window by calling `ceiling()`. This 'num_j' is the smallest number that is just grater than the lowerboundary specified. Next, we check if this `num_j` is also <= than the upperboundary. If yes, therefore, num_j resides between the lower and upper boundary.
 Since finding only a single pair of (nums[i], nums[j]) is enough according to the problem description so return true immediately. Otherwise, if we reach to the end of the input set therefore, we did NOT find any pair in the range, so return false.
 
+Time & Space:
+   * Time: O(n)
+   * Space: O(k)
+
 ----
