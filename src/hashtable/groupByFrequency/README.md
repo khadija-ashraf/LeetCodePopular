@@ -37,12 +37,14 @@ Constraints:
 
 ### Solution
 
-<ins>__Sorting + HashMap Based Solution>:__</ins>
+<ins>__Sorting + HashMap Based Solution>:__</ins> 
+
+Any two anagrams will have same character frequency and same order when both are sorted. We use this anagram property to our advantage and make the sorted string key of a HashMap. The value associated to the `kwy` is a list of strings of the original input which all have produced the `key` when sorted.
 
 __Algorithm:__
-* sort every string in the input String array, the sorted strings are the key, and the original input string is the value.
-* sort the current word
-* store the original input string in a Lis<String> 
+* sort every string in the input String array,
+* populate a 'map' with the sorted string as the `key`, and the original input string is the `value`.
+* return the `map.value()` as a nested list of string.
 
 ```java
 
