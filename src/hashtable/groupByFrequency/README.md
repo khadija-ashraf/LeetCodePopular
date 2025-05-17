@@ -90,26 +90,25 @@ Example: Input = ["eat", "tea", "tan", "ate", "nat", "bat"]
 	
  	Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
 Time & Space:
+
 * Time O(n * k log k): Sorting each string O(k log k), where k is max word length, Total time: O(n * k log k)
 * Space O(n * k): O(n * k) for HashMap Keys and Values and Result list
 
-		1. HashMap Keys and Values
+__Space Complexity Described:__
+1. HashMap Keys and Values: we’re using a HashMap<String, List<String>>.
+   	* Each key is a sorted version of a word (e.g., “eat” → “aet”) — that’s a new string taking up O(k) space.
+   	* Each value is a list of words, and across the whole map, we’ll store all n words.
+   	  
+2. Result List: At the end, we return new ArrayList<>(map.values()):
+   	* This collects all the n words grouped in sublists.
+   	* Again, storing all words → O(n * k)
+   	  
+3. Total Space = O(n * k)
+   	* n words, each of length k
+   	* Possibly storing extra strings (the sorted versions) and all original strings grouped
+   	* Final structure holds the same n strings, just grouped
 		
-		we’re using a HashMap<String, List<String>>.
-		•	Each key is a sorted version of a word (e.g., “eat” → “aet”) — that’s a new string taking up O(k) space.
-		•	Each value is a list of words, and across the whole map, we’ll store all n words.
-		2. Result List
-		
-		At the end, we return new ArrayList<>(map.values()):
-		•	This collects all the n words grouped in sublists.
-		•	Again, storing all words → O(n * k)
-
-		Total Space = O(n * k)
-		•	n words, each of length k
-		•	Possibly storing extra strings (the sorted versions) and all original strings grouped
-		•	Final structure holds the same n strings, just grouped
-		
-		So both the map and the final result use O(n * k) in total.
+So both the map and the final result use O(n * k) in total.
 
 ----
 
