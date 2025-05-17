@@ -175,10 +175,17 @@ Time & Space:
 
 Given the root of a binary search tree and an integer k, return true if there exist two elements in the BST such that their sum is equal to k, or false otherwise.
 
-Example 1: Input: root = [5,3,6,2,4,null,7], k = 9
-Output: true
+Example 1: 
 
-![This is a BST]([./pic/pic1_50.png](https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg) =100x20)
+    Input: root = [5,3,6,2,4,null,7], k = 9
+    Output: true
 
-![This is a BST](https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg =100x20)
+<img src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg" width="300" height="200" />
+
+Example 2:
+
+    Input: root = [5,3,6,2,4,null,7], k = 28
+    Output: false
+
+<img src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_2.jpg" width="300" height="200" />
 
