@@ -193,10 +193,72 @@ Example 2:
 
 ### Solution
 
-<ins>__Approach 1: InOrder Traversal + Two Pointer Search: __</ins> 
+<ins>__Approach 1: InOrder Traversal + Two Pointer Search.__</ins> 
 
-We can sort the values of the given tree using an inorder traversal. Once the node values are sorted use two pointer in this sorted list to find the the target sum. This two pointer technique is exact implementation of the leetcode 167. Two Sum II - Input Array Is Sorted.
+We can sort the values of the given tree using an inorder traversal, since a Binary Search Tree(BST) can be sorted by inorder traversal (left->root->right). Once the node values are sorted use two pointer in this sorted list to find the the target sum. This two pointer technique is exact implementation of the leetcode 167. Two Sum II - Input Array Is Sorted.
 
+```java
 
+public boolean findTargetInOrderNTwoPointer(TreeNode root, int k) {
+    	List<Integer> nums = inorderTravarsal(root); 
+    	int left = 0;
+    	int right = nums.size() - 1;
+    	while(left < right) {
+        	int sum = nums.get(left) + nums.get(right);
+        	if(sum < k) {
+        		left++;
+        	} else if (sum > k) {
+        		right--;
+        	} else {
+        		return true;
+        	}
+        }
+    	return false;
+    }
+    
+    private List<Integer> inorderTravarsal(TreeNode root) {
+    	if(root == null) return List.of();
+    	List<Integer> sorted = new ArrayList<Integer>();
 
+    	List<Integer> left = inorderTravarsal(root.left);
+    	sorted.addAll(left);
+    	
+    	sorted.add(root.val);
+    	
+    	List<Integer> right = inorderTravarsal(root.right);
+    	sorted.addAll(right);
+
+    	return sorted;
+    }
+```
+
+Time & Space:
+   * Time: O(n)
+   *  O(2n)= O(n) for the set + dfs recursion stack
+----
+
+<ins>__Approach 2: DFS + HashSet.__</ins>
+
+This approach is even more efficient. During a DSF traversal we can keep a hasSet of already traversed nodes. If we find the complement (target - current node val) in the set, that means that complemnt node was already traversed and present in the tree. So we found both the pairs which sum to the given target `k`.
+
+```java
+
+    public boolean findTargetDFSnHashset(TreeNode root, int k) {
+    	Set<Integer> set = new HashSet<>();
+    	return dfs(root, k, set);
+    }
+    private boolean dfs(TreeNode root, int k, Set<Integer> set) {
+    	if(root == null) return false;
+
+    	if(set.contains(k - root.val)) return true;
+
+    	set.add(root.val);
+    	return dfs(root.left, k, set) || dfs(root.right, k, set);
+    }
+```
+
+Time & Space:
+   * Time: O(n)
+   * Space: O(n) for the set + O(n) dfs recursion stack = O(2n) = O(n)
+----
 
