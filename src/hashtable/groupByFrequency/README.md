@@ -89,7 +89,8 @@ Example: Input = ["eat", "tea", "tan", "ate", "nat", "bat"]
 	•	“bat” → “abt” → map = {…, “abt”: [“bat”]}
 	
  	Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-Time & Space:
+  
+<ins>Time & Space:</ins>
 
 * Time O(n * k log k): Sorting each string O(k log k), where k is max word length, Total time: O(n * k log k)
 * Space O(n * k): O(n * k) for HashMap Keys and Values and Result list
