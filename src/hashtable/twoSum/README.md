@@ -177,5 +177,8 @@ Given the root of a binary search tree and an integer k, return true if there ex
 
 Example 1: Input: root = [5,3,6,2,4,null,7], k = 9
 Output: true
-![This is a BST](https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg "This is a BST.")
+
+![This is a BST]([./pic/pic1_50.png](https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg) =100x20)
+
+![This is a BST](https://assets.leetcode.com/uploads/2020/09/21/sum_tree_1.jpg =100x20)
 
