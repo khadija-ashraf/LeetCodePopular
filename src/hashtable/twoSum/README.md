@@ -189,3 +189,14 @@ Example 2:
 
 <img src="https://assets.leetcode.com/uploads/2020/09/21/sum_tree_2.jpg" width="300" height="200" />
 
+----
+
+### Solution
+
+<ins>__Approach 1: InOrder Traversal + Two Pointer Search: __</ins> 
+
+We can sort the values of the given tree using an inorder traversal. Once the node values are sorted use two pointer in this sorted list to find the the target sum. This two pointer technique is exact implementation of the leetcode 167. Two Sum II - Input Array Is Sorted.
+
+
+
+
