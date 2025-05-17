@@ -20,7 +20,6 @@ public class TwoSum4 {
 	// Space: O(2n)= O(n) for the set + dfs recursion stack
     public boolean findTargetDFSnHashset(TreeNode root, int k) {
     	Set<Integer> set = new HashSet<>();
-    	
     	return dfs(root, k, set);
     }
     
