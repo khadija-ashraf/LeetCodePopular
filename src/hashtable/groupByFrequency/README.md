@@ -1,4 +1,4 @@
-###[49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
+### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
 
 Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 
@@ -32,3 +32,46 @@ Constraints:
     1 <= strs.length <= 104
     0 <= strs[i].length <= 100
     strs[i] consists of lowercase English letters.
+
+---
+
+### Solution
+
+<ins>__Sorting + HashMap Based Solution>:__</ins>
+
+__Algorithm:__
+* sort every string in the input String array, the sorted strings are the key, and the original input string is the value.
+* sort the current word
+* store the original input string in a Lis<String> 
+
+```java
+
+public List<List<String>> groupAnagrams(String[] strs) {
+		Map<String, List<String>> map = new HashMap<>();
+		for(int i = 0; i < strs.length; i++) {
+			String s = strs[i];
+			char[] charArr = s.toCharArray();
+			
+			Arrays.sort(charArr);
+			
+			String key = new String(charArr);
+			
+			if(map.containsKey(key)) {
+				List<String> temp = new ArrayList<String>();
+				temp.addAll(map.get(key));
+				temp.add(s);
+				map.put(key, temp);
+			} else {
+				List<String> temp = new ArrayList<String>();
+				temp.add(s);
+				map.put(key, temp);
+			}
+		}
+		List<List<String>> res = new ArrayList<>();
+		for(List<String> groupedStrs: map.values()) {
+			res.add(groupedStrs);
+		}
+		return res;
+    }
+
+```
