@@ -1,4 +1,4 @@
-P# [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
+# [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
 
 Given an array of strings strs, group the anagrams together. we can return the answer in any order.
 
@@ -36,6 +36,7 @@ Constraints:
 ---
 
 # Solution
+
 
 ## <ins>__Sorting + HashMap Based Solution:__</ins> 
 
@@ -329,5 +330,93 @@ List<Integer>[] bucket = new List[nums.length + 1]; // 1-indexed, because bucket
 > for full implementation refer to the [TopKFrequentElement.java](https://github.com/khadija-ashraf/LeetCodePopular/blob/main/src/hashtable/groupByFrequency/TopKFrequentElement.java) file in this directory.
 ---
 
+# [451. Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/description/)
+Given a string s, sort it in decreasing order based on the frequency of the characters. The frequency of a character is the number of times it appears in the string.
+
+Return the sorted string. If there are multiple answers, return any of them.
+
+	Example 1:
+	
+	Input: s = "tree"
+	Output: "eert"
+	Explanation: 'e' appears twice while 'r' and 't' both appear once.
+	So 'e' must appear before both 'r' and 't'. Therefore "eetr" is also a valid answer.
+	Example 2:
+	
+	Input: s = "cccaaa"
+	Output: "aaaccc"
+	Explanation: Both 'c' and 'a' appear three times, so both "cccaaa" and "aaaccc" are valid answers.
+	Note that "cacaca" is incorrect, as the same characters must be together.
+	Example 3:
+	
+	Input: s = "Aabb"
+	Output: "bbAa"
+	Explanation: "bbaA" is also a valid answer, but "Aabb" is incorrect.
+	Note that 'A' and 'a' are treated as two different characters.
+	
+	
+	Constraints:
+	
+	1 <= s.length <= 5 * 105
+	s consists of uppercase and lowercase English letters and digits.
+
+----
+
+# Solution
+
+This problem is silimar to the TopKFrequencyElement.
+
+## <ins>__Approach 1: HashMap and Max Heap__</ins>
+
+__Algorithm:__
+
+* Step 1: count the frequency by traversing the input array once.
+* Step 2: insert map keySet() by decreasing frequency into the maxHeap. Maxheap will have all the unique characters in decreasing order by character frequency.
+* Step 3: populate the result array by extracting the elements from the maxHeap 
+
+```java
+
+public String frequencySortHashMapAndMaxHeap(String s) {
+	Map<Character, Integer> map = new HashMap<>();
+	
+	for(int i = 0; i < s.length(); i++) {
+		char c = s.charAt(i);
+		map.put(c, map.getOrDefault(c, 0) + 1);
+	}
+	
+	PriorityQueue<Character> maxHeap = new PriorityQueue<>(
+			(a,b) -> map.get(b) - map.get(a));
+	
+	for(Character c: map.keySet()) {
+		maxHeap.offer(c);
+	}
+	
+	StringBuffer sbuf = new StringBuffer();
+	
+	while(!maxHeap.isEmpty()) {
+		Character c = maxHeap.poll();
+		int count = map.get(c);
+		
+		for(int i = 0; i < count; i++) {
+			sbuf.append(c);
+		}
+	}
+	return sbuf.toString();
+}
+```
+
+<ins>Time & Space:</ins>
+
+* Time O(n log n):
+  * Frequency count (HashMap) : O(n)
+  * Heap insertions (n elements) O(n log n)
+  * Extracting result from heap: O(n log n)
+  * Total Time: O(n) + O(n log n) + O(n) -> O(n log n)
+
+* Space O(n):
+  * HashMap: O(n)
+  * Max Heap: O(n)
+  * Output array: O(n)
+  * Total Space: O(n)
 
 
