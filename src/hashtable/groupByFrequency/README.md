@@ -1,4 +1,4 @@
-### [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
+# [49. Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
 
 Given an array of strings strs, group the anagrams together. we can return the answer in any order.
 
@@ -35,9 +35,9 @@ Constraints:
 
 ---
 
-### Solution
+# Solution
 
-<ins>__Sorting + HashMap Based Solution>:__</ins> 
+## <ins>__Sorting + HashMap Based Solution:__</ins> 
 
 Any two anagrams will have same character frequency and same order when both are sorted. We use this anagram property to our advantage and make the sorted string key of a HashMap. The value associated to the `key` is a list of strings of the original input which all have produced the `key` when sorted.
 
@@ -113,8 +113,221 @@ So both the map and the final result use O(n * k) in total.
 
 ----
 
-### [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
+# [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/description/)
 
+Given an integer array nums and an integer k, return the k most frequent elements. we may return the answer in any order.
+
+	Example 1:
+	
+	Input: nums = [1,1,1,2,2,3], k = 2
+	Output: [1,2]
+	Example 2:
+	
+	Input: nums = [1], k = 1
+	Output: [1]
+	 
+	
+	Constraints:
+	
+	1 <= nums.length <= 105
+	-104 <= nums[i] <= 104
+	k is in the range [1, the number of unique elements in the array].
+	It is guaranteed that the answer is unique.
+	 
+Follow up: your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+
+---
+
+# Solution
+
+> <ins>__Pro-Tip (Constraint Clarification)__</ins>
+What does these mean, `we may return the answer in any order.` and `constraints : It is guaranteed that the answer is unique.`?
+
+This means:
+* There is only one correct set of elements that appear in the top k frequencies.
+* However, the order of those elements doesn’t matter.
+
+__Example of unique answer:__
+
+	Input: nums = [1,1,1,2,2,3], k = 2
+	Frequencies:
+		•	1 → 3 times
+		•	2 → 2 times
+		•	3 → 1 time
+		•	The top 2 most frequent elements are: [1, 2] or [2,1] 
+	
+	Only one unique set of values satisfies that condition (1 and 2), though we can return [1, 2] or [2, 1] — both are valid.
+
+__So, What Kinds of Ambiguity Could Exist Without This Constraint?__
+
+	__Ties at the K-th Frequency:__
+	
+	If multiple elements have the same frequency, and that frequency happens to be the K-th most common, we may not know which elements to pick.
+	
+		nums = [1,1,2,2,3,3,4], k = 2
+		requencies:
+			•	1 → 2
+			•	2 → 2
+			•	3 → 2
+			•	4 → 1
+			•	Top 2 most frequent → any two of [1, 2, 3]
+			•	[1,2], [2,3], or [1,3] — all valid if not guaranteed unique
+	This is ambiguous — unless the problem tells we which to choose (e.g., by smallest number, lexicographical order, etc.), there is no one correct answer.
+
+So in 347, the guarantee means:
+* Only one valid set of elements has the top k highest frequencies.
+* There’s no “tie” for the last spot.
+* we don’t have to worry about multiple valid combinations.
+
+---
+
+## <ins>__Approach 1: HashMap and Min Heap__</ins>
+
+__Algorithm:__
+
+* count number frequency of the input array using a hashmap
+* create a minHeap of type HashMap, so that it can hold the hashMap entries.
+* for every `key` in the hashmap insert it into the minHeap.
+* whenever the minheap size() > `k` remove the front (lowest element) of the minHeap.
+* this way the minHeap will only carry `k` number of items in increasing order. Since we are removing the lowest element from the window every size the heap will be left wiht the top most element starting from the top being the rightmost element in the heap.
+
+  > __Pro-Tip:__ This concept of finding the top-k item using a minheap rather a maxheap feels self contradictory.__ but considering the heap propertiy that a maxheap has the largest item sitting in its front, and the minheap has its smallest time sitting in its front.
+  > Every time we poll() we pop an item from the front.
+  > If we use maxheap then we have to store all n number of items in the heap since, until end of travarsal of the input list we wont know witch item will be positioned at the kth location in that maxheap.
+  > However, when we use a min heap we can keep any `k` larger elemen among all the `n` elements. We keep removing the lowest element from the front whenever the minheap size exceeds size `k`. During the travarsal we will have only top most `k` values among so far traversed inputs.
+  > Besides, we know that the lowest value among the top-k items is sitting at the front(by definition of minheap). so we can pull it in constant time.
+
+```java
+
+public int[] topKFrequentHashMapAndMinHeap(int[] nums, int k) {
+		
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>(
+        		(a,b) -> a.getValue() - b.getValue());
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < nums.length; i++) {
+        	map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+        for(Entry<Integer, Integer> anEntry: map.entrySet()) {
+        	minHeap.offer(anEntry);
+        	while(minHeap.size() > k) {
+        		minHeap.poll();
+        	}
+        }
+        int[] res = new int[k];
+        int i = 0;
+        while(!minHeap.isEmpty()) {
+        	res[i++] = minHeap.poll().getKey();
+        }
+        return res;
+}
+```
+<ins>Time & Space:</ins>
+
+* Time O(n log k):
+  * Frequency count (HashMap) : O(n)
+  * Heap insertions (n elements) O(n * log k)
+  * Extracting result from heap: O(k log k)
+  * Total Time: when all elements are unique: O(n + n * log k), -> O(n log k)
+
+* Space O(u + k):
+  * HashMap: O(n)
+  * Min Heap: O(k)
+  * Output array: O(k)
+  * Total Space: O(n + k) -> O(n)
+
+
+
+---
+## <ins>__Approach 2: Frequency Array + Bucket Sort.__ </ins>
+
+__Algorithm:__
+* Find the range of the given input array by finding min and max number in that array.
+* create a frequency counting array of size (max-min + 1)
+* count frequency of the numbers in the input array `freq[nums[i] - min] += 1`
+* apply Bucket Sort in the frequency array to group the numbers of input into frequency-groups
+* pick the top k freq items by traversing the bucket array backwards by 'k' times.
+
+> __Why this solution optimal?__
+> * Avoids the overhead of HashMap and PriorityQueue
+> * Efficient for small ranges of integers (works great for bounded integer ranges)
+
+### Step-By-Step Demonstration:
+
+- finding min,max values from the input list, if min,max is known then the range of the input is known to us
+```java
+	for(int n: nums) {
+		if(n > max) {
+			max = n;
+		} else if(n < min){
+			min = n;
+		}
+	}
+```
+
+- use a frequency counting array like we count frequency for lower/upper case characters in a given string now define a frequency counting array of range (max-min + 1)
+  ```java
+	int[] freq = new int[max-min+1];
+	
+	// count frequency of the numbers in the input array
+	for(int i = 0; i < nums.length; i++) {
+		freq[nums[i] - min] += 1;
+	}
+  ```
+
+- now we apply Bucket Sort in the frequency array to group the numbers of input into frequency-groups. The idea is "EACH_FREQ_Count" is a bucket.
+- For example, 
+  - bucket[1] = all elements with frequency 1;
+  - bucket[2] = all elements with frequency 2;
+  - ...
+  - bucket[n] = all elements with frequency n;
+		
+- So, there will be len(nums) number of buckets, bucket is an array of lists. Each item in bucket is a list of Integer numbers.
+
+```java
+List<Integer>[] bucket = new List[nums.length + 1]; // 1-indexed, because bucket[0] <- invalid	
+	for(int i = 0; i < freq.length; i++) {
+		int num = i + min; // reconstructing the original number, similar as (1 + 'a') = b
+	
+		int freqCount = freq[i];
+		
+		if(bucket[freqCount] == null) {
+			bucket[freqCount] = new ArrayList<>();
+		}
+		
+		bucket[freqCount].add(num); 
+	}
+```
+- Now that we have frequency buckets we can pick the top k freq items by traversing the bucket array backwards by 'k' times.
+
+```java
+	int[] res = new int[k];
+	int idx = 0;
+	for(int i = bucket.length - 1; i >= 0; i--) {
+		if(bucket[i] != null) {
+			for(int n: bucket[i]) {
+				res[idx] = n;
+				idx++;
+				if(idx >= k) {
+					break; 
+				}
+			}
+			if(idx >= k) {
+				break; 
+			}
+		}
+	}
+	return res;
+```
+<ins>Time & Space:</ins>
+* Time: O(n + r):
+    * n = nums.length
+    * r = range of the input values = max - min
+* Space:
+    * O(r): Frequency Array of size r
+    * O(n): bucket list of size n in total. n number of buckets each carrying a list of elements from the original input. However, total number of elements aggregating all the bucket lists will not exceed n.
+
+> for full implementation refer to the TopKFrequentElement.java file in this directory.
+---
 
 
 
