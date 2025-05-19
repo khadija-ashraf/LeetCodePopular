@@ -364,7 +364,7 @@ Return the sorted string. If there are multiple answers, return any of them.
 
 # Solution
 
-This problem is silimar to the TopKFrequencyElement.
+This problem is silimar to the [TopKFrequencyElement](https://github.com/khadija-ashraf/LeetCodePopular/blob/main/src/hashtable/groupByFrequency/TopKFrequentElement.java).
 
 ## <ins>__Approach 1: HashMap and Max Heap__</ins>
 
@@ -425,7 +425,7 @@ public String frequencySortHashMapAndMaxHeap(String s) {
 __Algorithm:__
 
 * Step 1: count the frequency by traversing the input array once.
-* Step 2: put the items in buckets[1...n], of frequency group, likewise we implemented in the TopKFrequentElement.
+* Step 2: put the items in buckets[1...n], of frequency group, likewise we implemented in the [TopKFrequentElement](https://github.com/khadija-ashraf/LeetCodePopular/blob/main/src/hashtable/groupByFrequency/TopKFrequentElement.java).
 * step 3: populate result from the bucket[n..1] backwards to the result array, since the higher indexed buckets contains higher frequency.
 
 ```java
