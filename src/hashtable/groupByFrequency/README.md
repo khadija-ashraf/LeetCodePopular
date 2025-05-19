@@ -326,7 +326,7 @@ List<Integer>[] bucket = new List[nums.length + 1]; // 1-indexed, because bucket
     * O(r): Frequency Array of size r
     * O(n): bucket list of size n in total. n number of buckets each carrying a list of elements from the original input. However, total number of elements aggregating all the bucket lists will not exceed n.
 
-> for full implementation refer to the TopKFrequentElement.java file in this directory.
+> for full implementation refer to the [TopKFrequentElement.java](https://github.com/khadija-ashraf/LeetCodePopular/blob/main/src/hashtable/groupByFrequency/TopKFrequentElement.java) file in this directory.
 ---
 
 
