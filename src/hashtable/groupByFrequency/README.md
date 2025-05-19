@@ -420,3 +420,53 @@ public String frequencySortHashMapAndMaxHeap(String s) {
   * Total Space: O(n)
 
 
+## <ins>__Approach 2 (Optimal): HashMap and Bucket Sort__</ins>
+
+__Algorithm:__
+
+* Step 1: count the frequency by traversing the input array once.
+* Step 2: put the items in buckets[1...n], of frequency group, likewise we implemented in the TopKFrequentElement.
+* step 3: populate result from the bucket[n..1] backwards to the result array, since the higher indexed buckets contains higher frequency.
+
+```java
+
+public String frequencySortHashMapAndBucketSort(String s) {
+    	Map<Character, Integer> map = new HashMap<>();
+    	
+    	for(int i = 0; i < s.length(); i++) {
+    		char c = s.charAt(i);
+    		map.put(c, map.getOrDefault(c, 0) + 1);
+    	}
+    	
+    	List<Character>[] buckets = new List[s.length() + 1];
+    	for(Map.Entry<Character, Integer> entry: map.entrySet()) {
+    		char c = entry.getKey();
+    		int freq = entry.getValue();
+    		if(buckets[freq] == null) {
+    			buckets[freq] = new ArrayList<>();
+    		}
+    		buckets[freq].add(c);
+    	}
+    	
+    	StringBuffer sbuf = new StringBuffer();
+    	
+    	for(int i = buckets.length - 1; i >= 0; i--) {
+    		List<Character> charList = buckets[i];
+    		if(charList == null) {
+    			continue;
+    		}
+    		int freq = i;
+    		for(char c: charList) {
+        		for(int j = 0; j < freq; j++) {
+        			sbuf.append(c);
+        		}
+    		}
+    	}
+    	return sbuf.toString();
+    }
+```
+<ins>Time & Space:</ins>
+
+* Total Time:  HashMap O(n) + Bucket O(n) + result O(n) = O(n)
+* Total Space: HashMap O(n) + Bucket O(n) + result O(n) = O(n)
+
