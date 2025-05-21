@@ -46,27 +46,39 @@ Example all possible subarray of Input: {1, -1, 2, 1, 1, -2, 2}
      
 ```java
 
- public int subarraySum(int[] nums, int k) {
-	int count = 0;
-	for(int i = 0; i < nums.length; i++) {
-		for(int j = i; j < nums.length; j++) {
-			int sum = 0;
-			for(int m = i; m <= j; m++) {
-				sum += nums[m];
-			}
-				if(sum == k) {
-					count = count + 1;
-				}
-		}
-	} 
-	return count;
+public int subarraySum(int[] nums, int k) {
+    int count = 0;
+    for (int start = 0; start < nums.length; start++) {
+        int sum = 0;
+        for (int end = start; end < nums.length; end++) {
+            sum += nums[end];
+            if (sum == k) {
+                count++;
+            }
+        }
+    }
+    return count;
 }
-
 ```
+
+All the k-sum subarrays for k = 2, in the given input array,
+
+Input Array: 0, 1,-1, 2, 1, 1,-2, 2
+Prefix Sum:  0, 1, 0, 2, 3, 4, 2, 4
+	         
+	1,-1,2
+	2
+	-1,2,1
+	2,1,1,-2
+	1,1,-2,2
+
 
 <ins>Time & Space:</ins>
 
 * Time O(n^2): check all subarrays, and there are roughly n(n+1)/2 subarrays.
 * Space O(1): using only a few variables, no extra data structures.
 
+----
+
+<ins>Approach 2:  Prefix Sum</ins>
 
