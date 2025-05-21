@@ -26,8 +26,11 @@ A subarray is a contiguous non-empty sequence of elements within an array.
 <ins>Approach 1: Brute Force</ins>
 
 // Brute Force: Generate every possible sub array (Time Limit Exceeded)
+__Algorithm:__
+* For every number in the input array traverse 
 
-all possible subarray: {1, -1, 2, 1, 1, -2, 2}
+
+all possible subarray of Input: {1, -1, 2, 1, 1, -2, 2}
 i = 0, j = i ... len(nums)
 (1), (1,-1), (1,-1, 2), (1, -1, 2, 1), (1,-1, 2, 1, 1), (1,-1, 2, 1, 1, -2), (1,-1, 2, 1, 1, -2, 2)
 
@@ -58,3 +61,10 @@ so on..
     }
 
 ```
+
+Time and Space
+•	Time Complexity: O(n^2)
+•	You check all subarrays, and there are roughly n(n+1)/2 subarrays.
+•	Space Complexity: O(1)
+•	You’re using only a few variables, no extra data structures.
+
