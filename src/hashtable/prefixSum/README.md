@@ -64,9 +64,9 @@ Example all possible subarray of Input: {1, -1, 2, 1, 1, -2, 2}
 
 ```
 
-Time and Space
-•	Time Complexity: O(n^2)
-•	You check all subarrays, and there are roughly n(n+1)/2 subarrays.
-•	Space Complexity: O(1)
-•	You’re using only a few variables, no extra data structures.
+<ins>Time & Space:</ins>
+
+* Time O(n^2): check all subarrays, and there are roughly n(n+1)/2 subarrays.
+* Space O(1): using only a few variables, no extra data structures.
+
 
