@@ -19,3 +19,42 @@ A subarray is a contiguous non-empty sequence of elements within an array.
     1 <= nums.length <= 2 * 104
     -1000 <= nums[i] <= 1000
     -107 <= k <= 107
+----
+
+# Solution
+
+<ins>Approach 1: Brute Force</ins>
+
+// Brute Force: Generate every possible sub array (Time Limit Exceeded)
+
+all possible subarray: {1, -1, 2, 1, 1, -2, 2}
+i = 0, j = i ... len(nums)
+(1), (1,-1), (1,-1, 2), (1, -1, 2, 1), (1,-1, 2, 1, 1), (1,-1, 2, 1, 1, -2), (1,-1, 2, 1, 1, -2, 2)
+
+i = 1, j = i ... len(nums)
+(-1), (-1, 2), (-1, 2, 1), (-1, 2, 1, 1), (-1, 2, 1, 1, -2), (-1, 2, 1, 1, -2, 2)
+
+so on..
+     
+```java
+
+ public int subarraySum(int[] nums, int k) {
+        
+    	
+    	int count = 0;
+    	for(int i = 0; i < nums.length; i++) {
+    		for(int j = i; j < nums.length; j++) {
+    			int sum = 0;
+
+    			for(int m = i; m <= j; m++) {
+    				sum += nums[m];
+    			}
+				if(sum == k) {
+					count = count + 1;
+				}
+    		}
+    	} 
+    	return count;
+    }
+
+```
