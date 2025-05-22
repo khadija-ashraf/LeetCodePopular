@@ -25,7 +25,7 @@ A subarray is a contiguous non-empty sequence of elements within an array.
 
 ## Approach 1: Brute Force
 
-Brute Force: Generate every possible sub array (Time Limit Exceeded)
+Brute Force: Generate every possible sub array 
 
 __Algorithm:__
 * Initialize a variable count = 0 to keep track of the number of subarrays with sum equal to k.
