@@ -85,6 +85,9 @@ All the k-sum subarrays for k = 2, in the given input array,
 
 ### Key Concept and Algorithm:
 
+> Intuition: "As you move forward, keep looking behind to check if the numbers you’ve summed so far equals to K."
+
+
 * We traverse the input array from left towards right. While traversing we calculate the prefix sum for every index. Prefix sum is the running sum of every index position on the input array. Either we can maintain a new separate array for prefix sums or we can modify the input array itself if allowed. In this problem we are storing the prefixes in a new array.
 * Next we traverse the prefix array from left to right. The idea is, in every index we ask, does this currenPrefixSum (current index position's prefixSum) already contains the sum of one/more subarray summing to k?
 * To check this, we go k amount backwards by subtracting the amount 'k' from the currentPrefixSum. This subtracted value is the complementPrefixSum.
