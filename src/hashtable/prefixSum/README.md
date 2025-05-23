@@ -88,7 +88,7 @@ All the k-sum subarrays for k = 2, in the given input array,
 > Intuition: "As you move forward, keep looking behind to check if the numbers you’ve summed so far equals to K."
 
 
-* We traverse the input array from left towards right. While traversing we calculate the prefix sum for every index. Prefix sum is the running sum of every index position on the input array. Either we can maintain a new separate array for prefix sums or we can modify the input array itself if allowed. In this problem we are storing the prefixes in a new array.
+* We traverse the input array from left towards right. While traversing we calculate the prefix sum for every index. Prefix sum is the running sum of every index position in the input array. Either we can maintain a new separate array for prefix sums or we can modify the input array itself if allowed. In this problem we are storing the prefixes in a new array.
 * Next we traverse the prefix array from left to right. The idea is, in every index we ask, does this currenPrefixSum (current index position's prefixSum) already contains the sum of one/more subarray summing to k?
 * To check this, we go k amount backwards by subtracting the amount 'k' from the currentPrefixSum. This subtracted value is the complementPrefixSum.
 * complementPrefixSum is a number that is 'k' less than the currentPrefixSum in the prefixsum array.
@@ -179,7 +179,7 @@ The k-sum subarray count for k = 2, in the given input array,
 
 ### Key Concept and Algorithm:
 
-In the approach 2: Prefix Sum we used an array for storing our prefixes. There is a performance drain when we have to lookup for a complemenPrefixSum. We have to scan the prefix array until the current index to find if there is a prefix already in the map that matches the complemenPrefixSum. This is an average O(n) operation.
+In the approach 2: Prefix Sum, we used an array for storing our prefixes. There is a performance drain when we have to lookup for a complemenPrefixSum. We have to scan the prefix array until the current index to find if there is a prefix already in the map that matches the complemenPrefixSum. This is an average O(n) operation.
 
 
 To enhance the performance we can keep our prefixes in a HashMap. Then looking up for a complemenPrefixSum in that map would be a O(1) operation. We store the frequency of the prefixes so that we get the total number of occurrences of that prefix in the prefix array. The frequency of prefix is added to the k-sum subarray count when the prefix of that position matches to a complemenPrefixSum.
@@ -217,3 +217,46 @@ In this implementation we initialize the map(key=0, val=1), intuition behind is,
 
 ----
 
+# [974. Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/description/)
+
+Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+
+A subarray is a contiguous part of an array.
+
+	Example 1:
+	
+	Input: nums = [4,5,0,-2,-3,1], k = 5
+	Output: 7
+	Explanation: There are 7 subarrays with a sum divisible by k = 5:
+	[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]
+	Example 2:
+	
+	Input: nums = [5], k = 9
+	Output: 0
+	 
+	Constraints:
+	
+	1 <= nums.length <= 3 * 104
+	-104 <= nums[i] <= 104
+	2 <= k <= 104
+
+----
+
+# Solution
+
+Approach: Prefix Sum + HashMap (optimized Time O(n))
+
+This solution is identical to the `Approach 3:  Prefix Sum + HashMap (optimized Time O(n))` demonstrated under LeetCode 560. Subarray Sum Equals K. The only changes are, `complementPrefixSum = (currentPrefixSum % k + k) % k`. Now we perform a modulo operation to find the complementPrefixSum. 
+
+> Additionally, the map contains the modulo of the prefix sum rather than the prefix sum itself like we did in Leetcode 560.
+
+Explanation: We want to count how many subarrays have a sum divisible by k:
+
+	subarray_sum % k == 0
+	Conceptually Prefix Sum Differences: `sum[i..j] = prefixSum[j] - prefixSum[i-1]`
+ 	So, for a valid subarray, (prefixSum[j] - prefixSum[i-1]) % k == 0
+  	We can re-write, prefixSum[j] % k == prefixSum[i-1] % k
+   
+Therefore, we store mod values of prefix sums so that:
+* Every time we see the same mod again, we know a subarray exists that’s divisible by k.
+	
