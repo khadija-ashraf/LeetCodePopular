@@ -298,3 +298,5 @@ public int subarraysDivByK(int[] nums, int k) {
 * Time O(n): traverses the prefix array once O(n), for every index the hashMap lookup is O(1) operation.
 * Space O(n): using a HashMap of size n for storing prefixes.
 
+-----
+
