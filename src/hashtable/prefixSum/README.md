@@ -213,7 +213,7 @@ In this implementation we initialize the map(key=0, val=1), intuition behind is,
 ### Time & Space:
 
 * Time O(n): traverses the prefix array once O(n), for every index the hashMap lookup is O(1) operation.
-* Space O(n): using a HashMap of size n (worst case) for storing prefixes.
+* Space O(n): using a HashMap of size n for storing prefixes.
 
 ----
 
@@ -259,4 +259,42 @@ Explanation: We want to count how many subarrays have a sum divisible by k:
    
 Therefore, we store mod values of prefix sums so that:
 * Every time we see the same mod again, we know a subarray exists that’s divisible by k.
+
+* index : 0,1,2,  3, 4, 5,6
+* input : 0,4,5,  0,-2,-3,1
+* prefix: 0,4,9,  9, 7, 4,5
+* compl : 0,4,4,  4, 2, 4,0
+
+> Why Not Store Full Prefix Sums
+* We’re not checking if two prefix sums are equal
+* We’re checking if their difference is divisible by k
+* So we only care about their remainders modulo k
+* We only care about whether the difference of two prefix sums is divisible by k.
+* Two prefix sums with the same mod k mean the subarray between them has a sum divisible by k.
 	
+```java
+public int subarraysDivByK(int[] nums, int k) {
+		int count = 0;
+		int currentPrefixSum = 0;
+    	Map<Integer, Integer> map = new HashMap<>();
+    	map.put(0,  1);
+    	for(int i = 0; i < nums.length; i++) {
+    		currentPrefixSum += nums[i];
+    		//handle negative values. 
+    		int complementPrefixSum = (currentPrefixSum % k + k) % k;
+    		
+    		if(map.containsKey(complementPrefixSum)) {
+    			count = count + map.get(complementPrefixSum);
+    		}
+    		
+    		map.put(complementPrefixSum, map.getOrDefault(complementPrefixSum, 0) + 1);
+    	}
+        return count;
+}
+```
+
+### Time & Space:
+
+* Time O(n): traverses the prefix array once O(n), for every index the hashMap lookup is O(1) operation.
+* Space O(n): using a HashMap of size n for storing prefixes.
+
