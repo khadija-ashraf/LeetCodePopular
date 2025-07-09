@@ -74,13 +74,14 @@ The backtrack(items, curentIdx, subset) is generating subsets of elements starti
 - Starting from index 0, [1], [1,2], [1,2,3] → (end of array- hitting the wall)
 - Starting from index 1, [2], [2,3] → (end of array- hitting the wall)
 - Starting from index 2, [3] → (end of array- hitting the wall)
-- end of the array
+- end of array
 
 > Starting from every position in the items array the backtrack function is called until the
 `currentIdx` hits the wall, that means it reaches to the end of the array.
 
-The `subset` is the list where we keep adding items in every the include phase. `subset` starts with an empty array containing no elements, that is the empty subset.
+The `subset` is the list where we keep adding items in every `include` phase and contrarily, keep removing in every `exclude` phase. `subset` starts with an empty array containing no elements, that is the empty subset.
 
+Below is the complete implementation of the all possible subset generations. This is the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/)
 ```java
 public class Backtrack101 {
 	public void subsets(int[] nums) {
