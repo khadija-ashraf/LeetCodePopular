@@ -68,17 +68,18 @@ private void backtrack(int[] items, int currentIdx, List<Integer> subset) {
 	}
 }
 ```
-// starting from every position in the items array the backtrack function is called until the
-currentIdx hits the wall, that is reaches to the end of the array.
 
-The backtrack(items, curentIdx, subset) is generating subsets of elements for every index position of the items array.
+The backtrack(items, curentIdx, subset) is generating subsets of elements starting from every index of the `items` array.
 
-- Starting from index 0, [1], [1,2], [1,2,3]
-- Starting from index 1, [2], [2,3]
-- Starting from index 2, [3]
+- Starting from index 0, [1], [1,2], [1,2,3] → (end of array- hitting the wall)
+- Starting from index 1, [2], [2,3] → (end of array- hitting the wall)
+- Starting from index 2, [3] → (end of array- hitting the wall)
+- end of the array
 
+> Starting from every position in the items array the backtrack function is called until the
+`currentIdx` hits the wall, that means it reaches to the end of the array.
 
-For the array of items, we keep a list to store the subset generated in every `include` phase.
+The `subset` is the list where we keep adding items in every the include phase. `subset` starts with an empty array containing no elements, that is the empty subset.
 
 ```java
 public class Backtrack101 {
