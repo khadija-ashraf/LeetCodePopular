@@ -109,7 +109,7 @@ public class Backtrack101 {
 	}
 }
 ```
-## All Possbile Subsets
+# All Possbile Subsets
 Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
