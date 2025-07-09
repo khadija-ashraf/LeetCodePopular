@@ -2,7 +2,12 @@
 
 The top classic backtracking problems are, Permutations, Combinations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
 
-In this article, my target is to introduce the fundamental travarsal of backtracking along with the coding pattern. Later in the tutorial, when we get the knack of writing a basic `backtrack` function we will tweak that basic `backtrack` function to solve different problems under the mentioned topics avobe.  
+In this article, my target is to introduce the nature of travarsal in backtracking along with the coding pattern. Progressively, when we get the knack of writing a basic `backtrack` function we will tweak that basic function to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
+
+The topic progression is somewhat, 
+> subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
+
+My recommendation to you for reading this turorial sequentially rather hopping between topics.
 
 ## What is Backtracking? 
 
@@ -19,7 +24,7 @@ While walking in a maze:
 In summary:
 > include(current_item) → Recurse(include rest of the items one after the other) → exclude(current_item) 
 
-Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the start marked  items in every step after an `include`. 
+Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after an `include`. 
 
 
     start = 0
@@ -39,10 +44,7 @@ Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Ke
             ├── include 3 → [3] ⭐
             └── exclude 3 → []
 
-
-While walking through this item-maze [1, 2, 3]:
-
- :small_orange_diamond: Exploring all the paths starting from the item 1:  :small_orange_diamond:
+ :small_orange_diamond: Example: Exploring all the paths starting from the item 1:  :small_orange_diamond:
 
 - we walk on the current item [1] (include item 1),
 - then keep moving forward until hitting the wall (include rest of the items [2, 3] one after the other until hitting the end of array),
@@ -107,7 +109,16 @@ public class Backtrack101 {
 	}
 }
 ```
-
-This is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the generated subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
+## All Possbile Subsets
+Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
+
+# Combinations
+Next comes generating combination from an array of elements. 
+
+Combination is a special kind of all possible subset that has a size restriction. Any subset in a combination list must be of size-k.
+For example: items = {1,2,3};  k = 2;  list of combinations: [[1, 2], [1, 3], [2, 3]]
+
+Since we have a subset-size restrictions, therefore, while building a subset we can check if the current subset length meets the size restriction, if yes we include the subset in the result list otherwise move on. This is similar to walking in the maze, the restrictions is walk forward until you reach k-steps.
+
