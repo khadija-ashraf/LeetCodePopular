@@ -17,9 +17,9 @@ public class BasicCalculator2 {
     	// seen the first number. the second number is yet to come.
     	
     	// so, the trick is don't compute an operator until you reach to the 
-    	// next operator in the expression. only when we reach to an the next operator 
+    	// next operator in the expression. only when we reach to the next operator 
     	// we see both the numbers involving that operator.
-    	// for example, 5 + 9 / 3; until we reach to '/' we don't get to see 5 , and 3.
+    	// for example, 5 + 9 / 3; until we reach to '/' we don't get to see 5 , and 9.
     	
     	// the next trick is, to prioritize the '*, /' operators over '+,-'
     	// we delay/defer the addition and subtraction by pushing those numbers
@@ -28,8 +28,18 @@ public class BasicCalculator2 {
     	// the previous sign among '*, or /'.
     	
     	// for an expression starting with a '-' negative sign we push '-num'
-    	// that is '-0' in the stack. because, num = 0 at the first iteration.
+    	// that is '-0' in the stack. because, num = 0 at the first iteration. Doing this
+    	// we ensure the stack has all '+' operation dependent operands. The ambiguity
+    	// of which pair in the stack is addition and which pair in the stack 
+    	// is negation in the is removed this way.
+    	
+    	// Remember, we are performing the / and * operations immediately. 
+    	// The '+' and '-' operations are pushed into the stack for imposing lower priority.
+    	// since, we are pushing the negative operations as (-num) so we don't have to
+    	// perform any negative operations anymore. If we anly perform addition
+    	// among all the stack elements then negatives will also be coverd
    
+    	//
     	Stack<Integer> stack = new Stack<>();
     	int num = 0;
     	int res = 0;
@@ -38,7 +48,7 @@ public class BasicCalculator2 {
         for(int i = 0; i < s.length(); i++) {
         	char cur = s.charAt(i);
 
-        	if(Character.isDigit(cur)) {  // digit
+        	if(Character.isDigit(cur)) {  // generate the number from consecutive iteration.
         		num = num * 10 + (cur -'0');
         	} 
 

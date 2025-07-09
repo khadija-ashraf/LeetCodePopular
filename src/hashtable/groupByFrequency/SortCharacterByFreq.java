@@ -104,8 +104,11 @@ public class SortCharacterByFreq {
 	public static void main(String[] args) {
 		SortCharacterByFreq ob = new SortCharacterByFreq();
 		
-		String s = "tree";
+//		String s = "tree";
 //		Output: "eert"
+		
+		String s = "11223334444";
+
 		
 		System.out.println(ob.frequencySortHashMapAndMaxHeap(s));
 		System.out.println(ob.frequencySortHashMapAndBucketSort(s));

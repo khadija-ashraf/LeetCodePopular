@@ -1,7 +1,7 @@
 package com.leetcode;
 
 class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
+    public void mergeSortedArray(int[] nums1, int m, int[] nums2, int n) {
     	if(m == 0 && n > 0) {
     		for(int i = 0; i < n; i++) {
     			nums1[i] = nums2[i];
@@ -61,7 +61,7 @@ class Solution {
 //    	int[] nums2 = {3};
 //    	int n = 1;
     	
-    	ob.merge(nums1, m, nums2, n);
+    	ob.mergeSortedArray(nums1, m, nums2, n);
     	
     	for(int num: nums1) {
     		System.out.print(num + ", ");

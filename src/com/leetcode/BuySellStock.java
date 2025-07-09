@@ -9,10 +9,15 @@ public class BuySellStock {
         int minPrice = prices[0];
         
         for(int i = 0; i < prices.length; i++) {
+        	// the day we find the lowest price we can not sell that day, 
+        	// so there is no point of comparing the profit, so in a single day 
+        	// either we find the lowest price, if we don't find a lower buying price 
+        	// then we try selling, and compare max profit. 
         	if(prices[i] < minPrice) {
-            	minPrice = prices[i];
+            	minPrice = prices[i]; 	 // this is the buying day
         	} else {
-            	maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+        		// this is the selling day
+            	maxProfit = Math.max(maxProfit, prices[i] - minPrice);  
         	}
         }
         return maxProfit < 0 ? 0 : maxProfit;

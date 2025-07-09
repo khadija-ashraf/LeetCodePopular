@@ -1,7 +1,71 @@
 package com.leetcode.easy.twopointer;
+import java.util.*;
+
 
 public class Solution {
 	
+	public int calculate(String s) {
+        char prevOperand = '+';
+        Stack<String> stack = new Stack<>();
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if (c == ' ') continue;
+
+            int num = 0;
+            
+            while("0123456789".indexOf(c) != -1) {
+            	int n = Character.getNumericValue(c);
+            	num = (num * 10) + n;
+            	i++;
+            	c = s.charAt(i);
+            }
+            
+            if("+-*/".indexOf(c) != -1) {
+            	if(prevOperand == '/' || prevOperand == '*'){
+                	apply(stack);
+                } else {
+                    stack.push(String.valueOf(c));
+                }
+
+            } else {
+                stack.push(String.valueOf(num));
+            }
+            
+            // check if the previous Operand was a division or multiplication
+            // if yes, the immediately 
+            if(prevOperand == '/' || prevOperand == '*'){
+            	apply(stack);
+            }
+
+            if("+-*/".indexOf(c) != -1){
+                prevOperand = c;
+            }
+        }
+        while(stack.size() > 1){
+        	apply(stack);
+        }
+        return stack.isEmpty() ? -1 : Integer.parseInt(stack.pop());
+    }
+	
+	private void apply(Stack<String> stack) {
+        String b = stack.pop();
+        String op = stack.pop();
+        String a = stack.pop();
+        if(op.equals("/")) {
+            int res = Integer.parseInt(a) / Integer.parseInt(b); 
+            stack.push(String.valueOf(res)) ;        
+        } else if(op.equals("*")) {
+            int res = Integer.parseInt(a) * Integer.parseInt(b); 
+            stack.push(String.valueOf(res)) ; 
+        }  else if(op.equals("+")) {
+            int res = Integer.parseInt(a) + Integer.parseInt(b); 
+            stack.push(String.valueOf(res)) ;        
+        }  else if(op.equals("-")) {
+            int res = Integer.parseInt(a) - Integer.parseInt(b); 
+            stack.push(String.valueOf(res)) ;        
+        }  
+	}
     public boolean backspaceCompare(String s, String t) {
         StringBuffer str1 = implementBackspace(s);
         StringBuffer str2 = implementBackspace(t);
@@ -55,7 +119,8 @@ public class Solution {
 		String s = "bxj##tw";
 		String t = "bxo#j##tw";
 		
-		System.out.println(ob.backspaceCompare(s, t));
+//		System.out.println(ob.backspaceCompare(s, t));
+		System.out.println(ob.calculate(" 30/2 "));
 		
 	}
 

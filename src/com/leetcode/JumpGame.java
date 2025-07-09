@@ -12,6 +12,7 @@ public class JumpGame {
 				goal = i;
 			}
 			i--;
+			System.out.println(goal);
 		}
 		return goal == 0;
         
@@ -20,8 +21,8 @@ public class JumpGame {
 	public static void main(String a[]) {
 		JumpGame ob = new JumpGame();
 		
-//		int[] nums = {2,3,1,1,4};
-		int[] nums = {3,2,1,0,4};
+		int[] nums = {2,3,1,1,4};
+//		int[] nums = {3,2,1,0,4};
 		
 		System.out.println(ob.canJump(nums));
 	}

@@ -23,6 +23,24 @@ public class SubArraySumDivisibleByK {
         return count;
     }
     
+    public int subarraySum(int[] nums, int k) {
+    	int count = 0;
+    	
+    	for(int i = 0; i < nums.length; i++) {
+    		
+			int sum = 0;
+    		for(int j = i; j < nums.length; j++) {
+    			sum += nums[j];
+    			System.out.println(sum);
+
+				if(sum == k) {
+					count = count + 1;
+				}
+    		}
+    	} 
+    	return count;
+    }
+    
 	public static void main(String[] args) {
 		SubArraySumDivisibleByK ob = new SubArraySumDivisibleByK();
 		
@@ -48,7 +66,8 @@ public class SubArraySumDivisibleByK {
 //		int[] nums = {-1,2,9};
 //		int k = 2;
 		
-		System.out.println(ob.subarraysDivByK(nums, k));
+		ob.subarraySum(nums, k);
+//		System.out.println(ob.subarraysDivByK(nums, k));
 
 	}
 
