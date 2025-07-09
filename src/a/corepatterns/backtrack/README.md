@@ -117,8 +117,18 @@ Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/
 # Combinations
 Next comes generating combination from an array of elements. 
 
-Combination is a special kind of all possible subset that has a size restriction. Any subset in a combination list must be of size-k.
+> Combination is a special kind of all possible subset that has a size restriction. Any subset in a combination list must be of size-k.
 For example: items = {1,2,3};  k = 2;  list of combinations: [[1, 2], [1, 3], [2, 3]]
 
-Since we have a subset-size restrictions, therefore, while building a subset we can check if the current subset length meets the size restriction, if yes we include the subset in the result list otherwise move on. This is similar to walking in the maze, the restrictions is walk forward until you reach k-steps.
+Since we have a subset-size restrictions, therefore, while building a subset we can check if the current subset length meets the size restriction, if yes we include the subset in the result list otherwise move on. This is similar to walking in the maze, the restrictions is keep walking forward until you reach k-steps or hit a wall.
+
+> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination backtracking function.
+
+Below is the comparison view of the All Possbile Subsets generation and the Combinations generation implementation. As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, in which case the combinations are not possible. in the second base case, as the size of the current list of items matches to k `k == currentList.size()` we add this current list to the results.
+
+<img width="1456" alt="combinations" src="https://github.com/user-attachments/assets/4cf1f6ff-db65-4dbb-a62c-22b5e4483a4b" />
+
+
+
+
 
