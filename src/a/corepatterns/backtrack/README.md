@@ -82,7 +82,8 @@ The backtrack(items, currentIdx, currentList) is generating subsets of elements 
 
 The `currentList` is the list where we keep adding items in every `include` phase contrarily, keep removing in every `exclude` phase. `currentList` starts with an empty array containing no elements, that is the empty subset.
 
-Below is the complete implementation of the all possible subset generations. This is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets.
+:star: Below is the complete implementation of the all possible subset generations. Bookmark this class `Backtrack101`.  This is the ultimate base pattern of a backtrack function. :star:
+
 ```java
 public class Backtrack101 {
 	private void backtrack(int[] items, int currentIdx, 
@@ -107,6 +108,6 @@ public class Backtrack101 {
 }
 ```
 
-For collecting all the generated subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
+This is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the generated subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
