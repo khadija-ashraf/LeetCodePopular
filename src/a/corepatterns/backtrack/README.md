@@ -44,5 +44,27 @@ The square braket arrays generated during walking through the item-maze [1, 2, 3
 `[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]`
 Okay, wait, aren't these arrays same as the powerset of the items [1, 2, 3]? Exactly, We just generated all possible subsets of the items [1, 2, 3].
 
-The java code snippet of walking through the item maze is:
+The java code snippet of walking through the item-maze is:
+
+```java
+public class Backtrack101 {
+	public void subsets(int[] nums) {
+		List<Integer> subset = new ArrayList<Integer>();
+		backtrack(nums, 0, subset);
+	}
+	private void backtrack(int[] nums, int currentIdx, List<Integer> subset) {
+		System.out.println(subset);
+		for(int i = currentIdx; i < nums.length; i++) {
+			subset.add(nums[currentIdx]);
+			backtrack(nums, i + 1, subset);
+			subset.remove(subset.size() - 1);
+		}
+	}
+	public static void main(String[] args) {
+		Backtrack101 ob = new Backtrack101();
+		int[] nums = {1,2,3};
+		ob.subsets(nums);
+	}
+}
+```
 
