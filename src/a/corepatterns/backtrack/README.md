@@ -57,19 +57,20 @@ Okay, wait, aren't these arrays same as the powerset of the items [1, 2, 3]? Exa
 The java code snippet of walking through the item-maze is:
 ```java
 
-private void backtrack(int[] items, int currentIdx, List<Integer> subset) {
-	System.out.println(subset);
+private void backtrack(int[] items, int currentIdx, 
+		List<Integer> currentList) {
 
-	
+	System.out.println(currentList);
 	for(int i = currentIdx; i < items.length; i++) {
-		subset.add(items[currentIdx]); // include the current_item 
-		backtrack(items, i + 1, subset); // recurse on the rest of the items after the current_item 
-		subset.remove(subset.size() - 1); // exclude the current_item  
+		currentList.add(items[i]); // include the current item
+		backtrack(items, i + 1, currentList, result); // keep including the rest of the items one by one
+		currentList.remove(currentList.size() - 1); // exclude the current item
 	}
 }
+	
 ```
 
-The backtrack(items, curentIdx, subset) is generating subsets of elements starting from every index of the `items` array.
+The backtrack(items, currentIdx, currentList) is generating subsets of elements starting from every index of the `items` array.
 
 - Starting from index 0, [1], [1,2], [1,2,3], [1,3]→ (end of array- hitting the wall)
 - Starting from index 1, [2], [2,3] → (end of array- hitting the wall)
@@ -79,22 +80,24 @@ The backtrack(items, curentIdx, subset) is generating subsets of elements starti
 > Starting from every position in the items array the backtrack function is called until the
 `currentIdx` hits the wall, that means it reaches to the end of the array.
 
-The `subset` is the list where we keep adding items in every `include` phase and contrarily, keep removing in every `exclude` phase. `subset` starts with an empty array containing no elements, that is the empty subset.
+The `currentList` is the list where we keep adding items in every `include` phase contrarily, keep removing in every `exclude` phase. `currentList` starts with an empty array containing no elements, that is the empty subset.
 
-Below is the complete implementation of the all possible subset generations. This is the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets.
+Below is the complete implementation of the all possible subset generations. This is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets.
 ```java
 public class Backtrack101 {
-	public void subsets(int[] nums) {
-		List<Integer> subset = new ArrayList<Integer>();
-		backtrack(nums, 0, subset);
-	}
-	private void backtrack(int[] nums, int currentIdx, List<Integer> subset) {
-		System.out.println(subset);
-		for(int i = currentIdx; i < nums.length; i++) {
-			subset.add(nums[currentIdx]);
-			backtrack(nums, i + 1, subset);
-			subset.remove(subset.size() - 1);
+	private void backtrack(int[] items, int currentIdx, 
+			List<Integer> currentList) {
+		System.out.println(currentList);
+		for(int i = currentIdx; i < items.length; i++) {
+			currentList.add(items[i]);
+			backtrack(items, i + 1, currentList);
+			currentList.remove(currentList.size() - 1); 
 		}
+	}
+	public void subsets(int[] n){
+		List<Integer> currentList = new ArrayList<Integer>();
+		int currentIdx = 0;
+		backtrack(n, currentIdx, currentList); 
 	}
 	public static void main(String[] args) {
 		Backtrack101 ob = new Backtrack101();
@@ -104,25 +107,6 @@ public class Backtrack101 {
 }
 ```
 
-For collecting all the generated subsets we can keep a List of lists. Below is the final implementation of Leetcode 78. Subsets.
+For collecting all the generated subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
 
-public class Backtrack101 {
-	public void subsets(int[] nums) {
-		List<Integer> subset = new ArrayList<Integer>();
-		backtrack(nums, 0, subset);
-	}
-	private void backtrack(int[] nums, int currentIdx, List<Integer> subset) {
-		System.out.println(subset);
-		for(int i = currentIdx; i < nums.length; i++) {
-			subset.add(nums[currentIdx]);
-			backtrack(nums, i + 1, subset);
-			subset.remove(subset.size() - 1);
-		}
-	}
-	public static void main(String[] args) {
-		Backtrack101 ob = new Backtrack101();
-		int[] nums = {1,2,3};
-		ob.subsets(nums);
-	}
-}
-```
+<img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
