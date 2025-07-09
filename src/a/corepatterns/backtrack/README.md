@@ -71,7 +71,7 @@ private void backtrack(int[] items, int currentIdx, List<Integer> subset) {
 
 The backtrack(items, curentIdx, subset) is generating subsets of elements starting from every index of the `items` array.
 
-- Starting from index 0, [1], [1,2], [1,2,3] → (end of array- hitting the wall)
+- Starting from index 0, [1], [1,2], [1,2,3], [1,3]→ (end of array- hitting the wall)
 - Starting from index 1, [2], [2,3] → (end of array- hitting the wall)
 - Starting from index 2, [3] → (end of array- hitting the wall)
 - end of array
@@ -81,7 +81,7 @@ The backtrack(items, curentIdx, subset) is generating subsets of elements starti
 
 The `subset` is the list where we keep adding items in every `include` phase and contrarily, keep removing in every `exclude` phase. `subset` starts with an empty array containing no elements, that is the empty subset.
 
-Below is the complete implementation of the all possible subset generations. This is the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/)
+Below is the complete implementation of the all possible subset generations. This is the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets.
 ```java
 public class Backtrack101 {
 	public void subsets(int[] nums) {
@@ -104,4 +104,25 @@ public class Backtrack101 {
 }
 ```
 
+For collecting all the generated subsets we can keep a List of lists. Below is the final implementation of Leetcode 78. Subsets.
 
+public class Backtrack101 {
+	public void subsets(int[] nums) {
+		List<Integer> subset = new ArrayList<Integer>();
+		backtrack(nums, 0, subset);
+	}
+	private void backtrack(int[] nums, int currentIdx, List<Integer> subset) {
+		System.out.println(subset);
+		for(int i = currentIdx; i < nums.length; i++) {
+			subset.add(nums[currentIdx]);
+			backtrack(nums, i + 1, subset);
+			subset.remove(subset.size() - 1);
+		}
+	}
+	public static void main(String[] args) {
+		Backtrack101 ob = new Backtrack101();
+		int[] nums = {1,2,3};
+		ob.subsets(nums);
+	}
+}
+```
