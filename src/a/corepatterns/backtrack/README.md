@@ -281,44 +281,36 @@ Conversly while generating subsets,
 - starting at every single index in the input array we walk forward through every elements until the end of the array, and don't walk backwards.
 - and keep adding the current element in the `currentList`. As soon as we step on a new element we add that element to the `currentList`, and add the `currentList` to the result list. We return when we hit the wall that is we reach to the end of the array.
 
-```java
-public class SubArrays {
-	private void backtrack(int[] items, 
-			int currentIdx, 
-			List<Integer> currentList, 
-			List<List<Integer>> result) {
-		if(currentIdx >= items.length) {
-			return;
-		}
-		currentList.add(items[currentIdx]);
-		result.add(new ArrayList<Integer>(currentList));
-		backtrack(items, currentIdx + 1, currentList, result);
-		currentList.remove(currentList.size() - 1); 
-	}
-	
-	public List<List<Integer>> subarrays(int[] n){
-		List<List<Integer>> result = new ArrayList<>();
-		List<Integer> currentList = new ArrayList<>();
-		for(int currentIdx = 0; currentIdx < n.length; currentIdx++) {
-			backtrack(n, currentIdx, currentList, result); 
-		}
-	    return result;
-	}
-	public static void main(String[] args) {
-		SubArrays ob = new SubArrays();
-		int[] n = {1,2,3};
-		System.out.println(ob.subarrays(n));
-	}
-}
-
-```
 :small_orange_diamond: Here, is the comparison between all possible subset generation (on the left) and the all subarray generation (on the right) backtracking functions. :small_orange_diamond:
 
 <img width="1446" alt="Screenshot 2025-07-10 at 5 57 09 PM" src="https://github.com/user-attachments/assets/0ea2dcab-57c0-4181-8c82-9d65898ef49d" />
 
 > The reason we do not have any for loop inside the backtrack function that, once the entire array is traversed from the start'th index till the end, we want to backtrack all the way up to the 'start'. If we don't and stop somewhere before and keep exploring further down, then we will skip items in our generated subarrays. Which is not valid to be a subarray. That is why we are returning all the way to the 'start' index.
 
-> Now, we need a for loop outside the backtrack  to start generating subrarray from the next item of the input array, other wise we won't be generating all possible subarrays. So, we are calling this backtrack function from outside starting from every position of the array. The for loop inside the subarrays(n) is making those repeated backtrack function calls.
+> Now, we need a for-loop outside the backtrack  to start generating subrarray from the next item of the input array, other wise we won't be generating all possible subarrays. So, we are calling this backtrack function from outside starting from every position of the array. The for loop inside the subarrays(n) is making those repeated backtrack function calls.
 
 
-# 
+# String Partitioning
+Likewise, all-subarray generation string partitioning is also a core concepts to successfuly implement many string manipulation problems.
+
+### What is String Partitioning?
+
+Splitting a string into non-empty substrings, while maintaining order.
+For string "abc", possible partitions are:
+- ["a", "b", "c"]
+- ["a", "bc"]
+- ["ab", "c"]
+- ["abc"]
+
+Partitioning is like,
+> choosing break points between characters, and building substring by preserving order
+
+:small_orange_diamond: Here, is the comparison between all possible subset generation (on the left) and the string partitioning (on the right) backtracking functions. :small_orange_diamond:
+
+<img width="1446" alt="partition" src="https://github.com/user-attachments/assets/bac75084-f37b-4eb5-bb96-c77e2099cbec" />
+
+> The `end` index represents the split point, that means the ending of the current partition and the starting of the next partition.
+
+
+
+
