@@ -129,7 +129,11 @@ Below is the comparison view of the All Possbile Subsets generation (on the left
 
 
 # Permutations
-The fundamental difference between all possible subset generation and the permutation is, every element is included and again excluded in subset generation, whereas every position is used and released to ensure unique arrangements in the permutation generation process. And in permutations a every subset must be tha same size of the input array.
+The fundamental difference between all possible subset generation and the permutation is, every element is included and again excluded in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every subset must be the size of the input array.
+
+> Permutation is basically all possible rearrangments of the all the elements in the input array. For example, for a given array [1,2], the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
+
+Below tree shows all possible arrangements of n=3 positions where [1... n] = [1,2,3]
 	Start: []
 	
 	├── Use 1 ➝ [1]
