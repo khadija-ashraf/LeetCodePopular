@@ -7,7 +7,7 @@ In this article, my target is to introduce the different nature of travarsals in
 The topic progression is somewhat, 
 > subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
 
-My recommendation to you for reading this turorial is, read sequentially rather hopping between topics.
+My recommendation to you for reading this turorial is, read sequentially... 😃
 
 ## What is Backtracking? 
 
@@ -23,7 +23,7 @@ While walking in a maze:
 In summary:
 > step on(current_item) → Recurse(step on the rest of the items one after the other) → step back(current_item) 
 
-Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after an `step-on`. 
+Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after a  `step-on`. 
 
 
     start = 0
@@ -73,9 +73,9 @@ private void backtrack(int[] items, int currentIdx,
 
 The backtrack(items, currentIdx, currentList) is generating subsets of elements starting from every index of the `items` array.
 
-- Starting from index 0, [1], [1,2], [1,2,3], [1,3]→ (end of array- hitting the wall)
-- Starting from index 1, [2], [2,3] → (end of array- hitting the wall)
-- Starting from index 2, [3] → (end of array- hitting the wall)
+- Starting from index 0: [1], [1,2], [1,2,3], [1,3]→ (end of array- hitting the wall)
+- Starting from index 1: [2], [2,3] → (end of array- hitting the wall)
+- Starting from index 2: [3] → (end of array- hitting the wall)
 - end of array
 
 > Starting from every position in the items array the backtrack function is called until the
@@ -114,7 +114,7 @@ public class Backtrack101 {
 }
 ```
 # All Possbile Subsets
-Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated aong the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
+Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated along the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
 
@@ -128,13 +128,13 @@ Since we have a subset-size restrictions, therefore, while building a subset we 
 
 > The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination backtracking function.
 
-Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, in which case the combinations are not possible. in the second base case, as the size of the current list of items matches to k `k == currentList.size()` we add this current list to the results.
+Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, which means there are not enough items available for building a k-size subset. In the second base case, as the size of the currentList of items matches to k `k == currentList.size()` we add this currentList to the results.
 
 <img width="1456" alt="combinations" src="https://github.com/user-attachments/assets/4cf1f6ff-db65-4dbb-a62c-22b5e4483a4b" />
 
 
 # Permutations
-The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrariry in all possible subsets, a sublist can be of size between [0...n]
+The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrariry in all possible subsets, a sublist can be of any size between [0...n]
 
 > Permutation is basically all possible rearrangments of all the elements in the input array. For example, for a given array [1,2]; the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
 
