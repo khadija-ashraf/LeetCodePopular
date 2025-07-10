@@ -1,13 +1,13 @@
 # Backtrack 101
 
-The top classic backtracking problems are, Permutations, Combinations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
+The top classic backtracking problems are, Subsets, Combinations, Permutations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
 
-In this article, my target is to introduce the nature of travarsal in backtracking along with the coding pattern. Progressively, when we get the knack of writing a basic `backtrack` function we will tweak that basic function to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
+In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack` function we will tweak that basic function to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
 
 The topic progression is somewhat, 
 > subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
 
-My recommendation to you for reading this turorial sequentially rather hopping between topics.
+My recommendation to you for reading this turorial is, read sequentially rather hopping between topics.
 
 ## What is Backtracking? 
 
@@ -16,8 +16,7 @@ My recommendation to you for reading this turorial sequentially rather hopping b
 While walking in a maze:
 
 - You walk forward,
-- If you hit a wall (invalid path),
-- You go back (backtrack),
+- If you hit a wall go back (backtrack),
 - Try a new path (recursive branch),
 - Repeat until the exit is found.
 
@@ -110,7 +109,7 @@ public class Backtrack101 {
 }
 ```
 # All Possbile Subsets
-Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 implementation with Leetcode 78.
+Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
 
@@ -124,11 +123,46 @@ Since we have a subset-size restrictions, therefore, while building a subset we 
 
 > The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination backtracking function.
 
-Below is the comparison view of the All Possbile Subsets generation and the Combinations generation implementation. As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, in which case the combinations are not possible. in the second base case, as the size of the current list of items matches to k `k == currentList.size()` we add this current list to the results.
+Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, in which case the combinations are not possible. in the second base case, as the size of the current list of items matches to k `k == currentList.size()` we add this current list to the results.
 
 <img width="1456" alt="combinations" src="https://github.com/user-attachments/assets/4cf1f6ff-db65-4dbb-a62c-22b5e4483a4b" />
 
 
-
+# Permutations
+The fundamental difference between all possible subset generation and the permutation is, every element is included and again excluded in subset generation, whereas every position is used and released to ensure unique arrangements in the permutation generation process. And in permutations a every subset must be tha same size of the input array.
+	Start: []
+	
+	├── Use 1 ➝ [1]
+	│   ├── Use 2 ➝ [1, 2]
+	│   │   ├── Use 3 ➝ [1, 2, 3] ✅
+	│   │   └── Release 3
+	│   └── Release 2
+	│   ├── Use 3 ➝ [1, 3]
+	│   │   ├── Use 2 ➝ [1, 3, 2] ✅
+	│   │   └── Release 2
+	│   └── Release 3
+	└── Release 1
+	
+	├── Use 2 ➝ [2]
+	│   ├── Use 1 ➝ [2, 1]
+	│   │   ├── Use 3 ➝ [2, 1, 3] ✅
+	│   │   └── Release 3
+	│   └── Release 1
+	│   ├── Use 3 ➝ [2, 3]
+	│   │   ├── Use 1 ➝ [2, 3, 1] ✅
+	│   │   └── Release 1
+	│   └── Release 3
+	└── Release 2
+	
+	├── Use 3 ➝ [3]
+	│   ├── Use 1 ➝ [3, 1]
+	│   │   ├── Use 2 ➝ [3, 1, 2] ✅
+	│   │   └── Release 2
+	│   └── Release 1
+	│   ├── Use 2 ➝ [3, 2]
+	│   │   ├── Use 1 ➝ [3, 2, 1] ✅
+	│   │   └── Release 1
+	│   └── Release 2
+	└── Release 3
 
 
