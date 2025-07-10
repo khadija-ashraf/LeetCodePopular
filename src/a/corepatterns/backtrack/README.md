@@ -2,9 +2,9 @@
 
 The top classic backtracking problems are, Subsets, Combinations, Permutations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
 
-In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic  to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
+In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic function to solve different problems. 
 
-The topic progression is somewhat, 
+There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. The topic progression is somewhat, 
 > subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
 
 My recommendation to you for reading this turorial is, read sequentially... 😃
@@ -245,9 +245,6 @@ Below is the comparison between all possible subset (on the left) and the permut
 - A subarray is a contiguous portion of an array.
 - Only continuous elements are allowed.
 - The order must be preserved.
-  
-For array [1, 2, 3], all subarrays are:
-`[1], [1, 2], [1, 2, 3], [2], [2, 3], [3]`
 
 Conversly while generating subsets, 
 - Elements can be skipped (not contiguous).
@@ -322,3 +319,6 @@ public class SubArrays {
 > The reason we do not have any for loop inside the backtrack function that, once the entire array is traversed from the start'th index till the end, we want to backtrack all the way up to the 'start'. If we don't and stop somewhere before and keep exploring further down, then we will skip items in our generated subarrays. Which is not valid to be a subarray. That is why we are returning all the way to the 'start' index.
 
 > Now, we need a for loop outside the backtrack  to start generating subrarray from the next item of the input array, other wise we won't be generating all possible subarrays. So, we are calling this backtrack function from outside starting from every position of the array. The for loop inside the subarrays(n) is making those repeated backtrack function calls.
+
+
+# 
