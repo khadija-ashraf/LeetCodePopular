@@ -21,32 +21,32 @@ While walking in a maze:
 - Repeat until the exit is found.
 
 In summary:
-> include(current_item) → Recurse(include rest of the items one after the other) → exclude(current_item) 
+> step on(current_item) → Recurse(step on the rest of the items one after the other) → step back(current_item) 
 
-Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after an `include`. 
+Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after an `step-on`. 
 
 
     start = 0
     [] ⭐
-    ├── include 1 → [1] ⭐
-    │   ├── include 2 → [1, 2] ⭐
-    │   │   ├── include 3 → [1, 2, 3] ⭐
-    │   │   └── exclude 3 → [1, 2]
-    │   └── exclude 2 → [1]
-    │       ├── include 3 → [1, 3] ⭐
-    │       └── exclude 3 → [1]
-    └── exclude 1 → []
-        ├── include 2 → [2] ⭐
-        │   ├── include 3 → [2, 3] ⭐
-        │   └── exclude 3 → [2]
-        └── exclude 2 → []
-            ├── include 3 → [3] ⭐
-            └── exclude 3 → []
+    ├── step-on 1 → [1] ⭐
+    │   ├── step-on 2 → [1, 2] ⭐
+    │   │   ├── step-on 3 → [1, 2, 3] ⭐
+    │   │   └── step-back 3 → [1, 2]
+    │   └── step-back 2 → [1]
+    │       ├── step-on 3 → [1, 3] ⭐
+    │       └── step-back 3 → [1]
+    └── step-back 1 → []
+        ├── step-on 2 → [2] ⭐
+        │   ├── step-on 3 → [2, 3] ⭐
+        │   └── step-back 3 → [2]
+        └── step-back 2 → []
+            ├── step-on 3 → [3] ⭐
+            └── step-back 3 → []
 
  :small_orange_diamond: Example: Exploring all the paths starting from the item 1:  :small_orange_diamond:
 
-- we walk on the current item [1] (include item 1),
-- then keep moving forward until hitting the wall (include rest of the items [2, 3] one after the other until hitting the end of array),
+- we walk on the current item [1] (step-on item 1),
+- then keep moving forward until hitting the wall (step-on rest of the items [2, 3] one after the other until hitting the end of array),
 - step back from the current item [1] → []
 
 
@@ -63,9 +63,9 @@ private void backtrack(int[] items, int currentIdx,
 
 	System.out.println(currentList);
 	for(int i = currentIdx; i < items.length; i++) {
-		currentList.add(items[i]); // include the current item
-		backtrack(items, i + 1, currentList, result); // keep including the rest of the items one by one
-		currentList.remove(currentList.size() - 1); // exclude the current item
+		currentList.add(items[i]); // step-on the current item
+		backtrack(items, i + 1, currentList, result); //keep stepping-on the rest of the items onebyone
+		currentList.remove(currentList.size() - 1); // step-back from the current item
 	}
 }
 	
@@ -81,7 +81,12 @@ The backtrack(items, currentIdx, currentList) is generating subsets of elements 
 > Starting from every position in the items array the backtrack function is called until the
 `currentIdx` hits the wall, that means it reaches to the end of the array.
 
-The `currentList` is the list where we keep adding items in every `include` phase contrarily, keep removing in every `exclude` phase. `currentList` starts with an empty array containing no elements, that is the empty subset.
+### Why we have the `currentList`?
+- `currentList`  represents a forward path that we walked through until some point.
+- It starts with an empty subset, that means we didn't start walking at that point.
+- The `currentList` is the list where we keep adding items in every `step-on` phase contrarily, keep removing in every `step-back` phase. When we walk to an item we add, when we walk back then we remove.
+- It keeps growing in every recursion step. Keeps shrinking upon returning from a recursion call.
+- In the Backtrack101 we are printing the `currentList` in every recursion step. The printed items are the subsets. Each subset grows during the `step-on` phase and shrinks in the `step-back` phase when we walk backwards.
 
 :star: Below is the complete implementation of the all possible subset generations. Bookmark this class `Backtrack101`.  This is the ultimate base pattern of a backtrack function. :star:
 
@@ -109,7 +114,7 @@ public class Backtrack101 {
 }
 ```
 # All Possbile Subsets
-Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
+Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated aong the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
 
@@ -119,7 +124,7 @@ Next comes generating combination from an array of elements.
 > Combination is a special kind of all possible subset that has a size restriction. Any subset in a combination list must be of size-k.
 For example: items = {1,2,3};  k = 2;  list of combinations: [[1, 2], [1, 3], [2, 3]]
 
-Since we have a subset-size restrictions, therefore, while building a subset we can check if the current subset length meets the size restriction, if yes we include the subset in the result list otherwise move on. This is similar to walking in the maze, the restrictions is keep walking forward until you reach k-steps or hit a wall.
+Since we have a subset-size restrictions, therefore, while building a subset we can check if the `currentList` size meets the size restriction, if yes we add the `currentList` in the result list otherwise move on.  This is similar to walking in the maze, the restriction means keep walking forward until you reach k-steps or hit a wall.
 
 > The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination backtracking function.
 
@@ -129,11 +134,11 @@ Below is the comparison view of the All Possbile Subsets generation (on the left
 
 
 # Permutations
-The fundamental difference between all possible subset generation and the permutation is, every element is included and again excluded in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every subset must be the size of the input array.
+The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrariry in all possible subsets, a sublist can be of size between [0...n]
 
-> Permutation is basically all possible rearrangments of the all the elements in the input array. For example, for a given array [1,2], the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
+> Permutation is basically all possible rearrangments of all the elements in the input array. For example, for a given array [1,2]; the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
 
-Below tree shows all possible arrangements of n=3 positions where [1... n] = [1,2,3]
+Below tree shows all possible arrangements of items [1,2,3]. Only the green tick marked sublists are the valid permutations.
 	Start: []
 	
 	├── Use 1 ➝ [1]
@@ -169,7 +174,7 @@ Below tree shows all possible arrangements of n=3 positions where [1... n] = [1,
 	│   └── Release 2
 	└── Release 3
 
-[Leetcode 46. Permutations](https://leetcode.com/problems/permutations/description/) asks to generate all possible permuations. Below is the java solution for this problem. We use our classical app possible subset generation template from Leetcode 78, with an extra boolean array indicating which items have been used for generating the walking path. 
+[Leetcode 46. Permutations](https://leetcode.com/problems/permutations/description/) asks to generate all possible permuations. Below is the java solution for this problem. We use our classical all possible subset generation template from Leetcode 78, with an extra boolean array indicating which items have been used for generating the `currentList`. `currentList` represents a forward path that we walked until some point. `currentList` keeps growing every recursion step, and when it becomes the size of the input array it is then added in the result list.
 
 ```java
 package backtrack;
@@ -185,14 +190,14 @@ public class Leetcode46 {
 			return;
 		}
 		for(int i = 0; i < items.length; i++) {
-			if(used[i]) continue; // avoid using restricted positions
+			if(used[i]) continue; // avoid using already used positions in the current walking path
 			
 			currentList.add(items[i]); // including position i in the current path
 			used[i] = true; // restricting i in the upcoming forward steps
 
 			backtrack(items, used, currentList, result); // recurse on the whole input array
 			
-			currentList.remove(currentList.size() - 1); // exclude index i from the current path
+			currentList.remove(currentList.size() - 1); // removing index i from the current path
 			used[i] = false; // releasing position i to be available in the upcoming forward steps. 
 		}
 	}
