@@ -2,7 +2,7 @@
 
 The top classic backtracking problems are, Subsets, Combinations, Permutations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
 
-In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack` function we will tweak that basic function to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
+In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic  to solve different problems. There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. 
 
 The topic progression is somewhat, 
 > subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
@@ -23,7 +23,7 @@ While walking in a maze:
 In summary:
 > step on(current_item) → Recurse(step on the rest of the items one after the other) → step back(current_item) 
 
-Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after a  `step-on`. 
+Below, is the subset-tree for walking through the item-maze: [1, 2, 3]. Keep an eye on the star marked  items in every step after a  `step-on`. 
 
 
     start = 0
@@ -42,6 +42,7 @@ Below, is the backtracking tree for walking through the item-maze: [1, 2, 3]. Ke
         └── step-back 2 → []
             ├── step-on 3 → [3] ⭐
             └── step-back 3 → []
+
 
  :small_orange_diamond: Example: Exploring all the paths starting from the item 1:  :small_orange_diamond:
 
@@ -113,10 +114,18 @@ public class Backtrack101 {
 	}
 }
 ```
+
+> Tip: to better understand the recursive flow of each topics, keep an eye on the trees demonstrater in this article.
+
 # All Possbile Subsets
 Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated along the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
 
 <img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
+
+### Example
+`Input: [1,2,3]`
+`Output: [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]`
+
 
 # Combinations
 Next comes generating combination from an array of elements. 
@@ -126,12 +135,15 @@ For example: items = {1,2,3};  k = 2;  list of combinations: [[1, 2], [1, 3], [2
 
 Since we have a subset-size restrictions, therefore, while building a subset we can check if the `currentList` size meets the size restriction, if yes we add the `currentList` in the result list otherwise move on.  This is similar to walking in the maze, the restriction means keep walking forward until you reach k-steps or hit a wall.
 
-> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination backtracking function.
+> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination generation backtracking function.
 
 Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, which means there are not enough items available for building a k-size subset. In the second base case, as the size of the currentList of items matches to k `k == currentList.size()` we add this currentList to the results.
 
 <img width="1456" alt="combinations" src="https://github.com/user-attachments/assets/4cf1f6ff-db65-4dbb-a62c-22b5e4483a4b" />
 
+### Example
+`Input: items = [1,2,3], k = 2`
+`Output: [[1, 2], [1, 3], [2, 3]]`
 
 # Permutations
 The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrariry in all possible subsets, a sublist can be of any size between [0...n]
@@ -173,6 +185,10 @@ Below tree shows all possible arrangements of items [1,2,3]. Only the green tick
 	│   │   └── Release 1
 	│   └── Release 2
 	└── Release 3
+
+### Example
+`Input: items = [1,2,3]`
+`Output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]`
 
 [Leetcode 46. Permutations](https://leetcode.com/problems/permutations/description/) asks to generate all possible permuations. Below is the java solution for this problem. We use our classical all possible subset generation template from Leetcode 78, with an extra boolean array indicating which items have been used for generating the `currentList`. `currentList` represents a forward path that we walked until some point. `currentList` keeps growing every recursion step, and when it becomes the size of the input array it is then added in the result list.
 
@@ -222,3 +238,87 @@ Below is the comparison between all possible subset (on the left) and the permut
 
 <img width="1456" alt="permutation" src="https://github.com/user-attachments/assets/31841aeb-b9c4-4546-b58e-a61dc46d9dad" />
 
+
+# Sub Arrays
+
+### What is a Subarray?
+- A subarray is a contiguous portion of an array.
+- Only continuous elements are allowed.
+- The order must be preserved.
+  
+For array [1, 2, 3], all subarrays are:
+`[1], [1, 2], [1, 2, 3], [2], [2, 3], [3]`
+
+Conversly while generating subsets, 
+- Elements can be skipped (not contiguous).
+- Order doesn’t matter in pure combinatorics (though order is often preserved in our backtracking path)
+
+:small_orange_diamond: Below is the subarray-tree, we every start marked array is a valid subarray of input array [1,2,3] :small_orange_diamond:
+
+	Start at index 0
+	├── step-on 1 → [1] ⭐
+	│   ├── step-on 2 → [1,2] ⭐
+	│   │   └── step-on 3 → [1,2,3] ⭐ 
+        │   │   └── step-back 3 → [1, 2]
+        │   └── step-back 2 → [1]
+        └── step-back 1 → []
+
+	Start at index 1
+	├── step-on 2 → [2] ⭐
+	│   ├── step-on 3 → [2,3] ⭐
+        │   └── step-back 3 → [2]
+        └── step-back 2 → []
+
+	Start at index 2
+	├── step-on 3 → [3] ⭐
+        └── step-back 3 → []
+
+### Example
+`Input: items = [1,2,3]`
+`Output: [[1], [1, 2], [1, 2, 3], [2], [2, 3], [3]]`
+
+> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our subarray generating backtracking function.
+
+> Unlike generation of all possible subsets, for generating subarrays, once we start walking forward we don't walk backwards until raching at the end of the array. This ensures the (1) original order of the items are preserved, also (2) we are no skipping any item.
+
+- starting at every single index in the input array we walk forward through every elements until the end of the array, and don't walk backwards.
+- and keep adding the current element in the `currentList`. As soon as we step on a new element we add that element to the `currentList`, and add the `currentList` to the result list. We return when we hit the wall that is we reach to the end of the array.
+
+```java
+public class SubArrays {
+	private void backtrack(int[] items, 
+			int currentIdx, 
+			List<Integer> currentList, 
+			List<List<Integer>> result) {
+		if(currentIdx >= items.length) {
+			return;
+		}
+		currentList.add(items[currentIdx]);
+		result.add(new ArrayList<Integer>(currentList));
+		backtrack(items, currentIdx + 1, currentList, result);
+		currentList.remove(currentList.size() - 1); 
+	}
+	
+	public List<List<Integer>> subarrays(int[] n){
+		List<List<Integer>> result = new ArrayList<>();
+		List<Integer> currentList = new ArrayList<>();
+		for(int currentIdx = 0; currentIdx < n.length; currentIdx++) {
+			backtrack(n, currentIdx, currentList, result); 
+		}
+	    return result;
+	}
+	public static void main(String[] args) {
+		SubArrays ob = new SubArrays();
+		int[] n = {1,2,3};
+		System.out.println(ob.subarrays(n));
+	}
+}
+
+```
+:small_orange_diamond: Here, is the comparison between all possible subset generation (on the left) and the all subarray generation (on the right) backtracking functions. :small_orange_diamond:
+
+<img width="1446" alt="Screenshot 2025-07-10 at 5 57 09 PM" src="https://github.com/user-attachments/assets/0ea2dcab-57c0-4181-8c82-9d65898ef49d" />
+
+> The reason we do not have any for loop inside the backtrack function that, once the entire array is traversed from the start'th index till the end, we want to backtrack all the way up to the 'start'. If we don't and stop somewhere before and keep exploring further down, then we will skip items in our generated subarrays. Which is not valid to be a subarray. That is why we are returning all the way to the 'start' index.
+
+> Now, we need a for loop outside the backtrack  to start generating subrarray from the next item of the input array, other wise we won't be generating all possible subarrays. So, we are calling this backtrack function from outside starting from every position of the array. The for loop inside the subarrays(n) is making those repeated backtrack function calls.
