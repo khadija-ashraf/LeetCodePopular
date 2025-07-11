@@ -118,9 +118,9 @@ public class Backtrack101 {
 > Tip: to better understand the recursive flow of each topics, keep an eye on the trees demonstrater in this article.
 
 # All Possbile Subsets
-Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated along the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right).
+Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated along the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right). We will be using the AllPossibleSubsets class as our backtrack template for subsequent topics(combinations, permutations, subarray, partitioning. so on).
 
-<img width="1418" alt="backtrack101" src="https://github.com/user-attachments/assets/168b56b9-d82b-4591-88fc-bb32fe21237d" />
+<img width="1400" alt="subsets" src="https://github.com/user-attachments/assets/86cff1ed-2ff0-4971-b4ed-90ad628cbb2f" />
 
 ### Example
 `Input: [1,2,3]`
@@ -139,7 +139,7 @@ Since we have a subset-size restrictions, therefore, while building a subset we 
 
 Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, which means there are not enough items available for building a k-size subset. In the second base case, as the size of the currentList of items matches to k `k == currentList.size()` we add this currentList to the results.
 
-<img width="1456" alt="combinations" src="https://github.com/user-attachments/assets/4cf1f6ff-db65-4dbb-a62c-22b5e4483a4b" />
+<img width="1446" alt="combinations" src="https://github.com/user-attachments/assets/1ecba9a4-35a9-42c9-b4fa-965504995ea6" />
 
 ### Example
 `Input: items = [1,2,3], k = 2`
@@ -196,7 +196,7 @@ Below tree shows all possible arrangements of items [1,2,3]. Only the green tick
 package backtrack;
 import java.util.*;
 
-public class Leetcode46 {
+public class Permutations {
 	private void backtrack(int[] items, 
 			boolean[] used,
 			List<Integer> currentList, 
@@ -226,7 +226,7 @@ public class Leetcode46 {
 	    return result;
 	}
 	public static void main(String[] args) {
-		Leetcode46 ob = new Leetcode46();
+		Permutations ob = new Permutations();
 		int[] n = {1,2,3};
 		System.out.println(ob.permute(n));
 	}
@@ -236,7 +236,7 @@ public class Leetcode46 {
 Below is the comparison between all possible subset (on the left) and the permutation generation (on the right).
 
 
-<img width="1456" alt="permutation" src="https://github.com/user-attachments/assets/31841aeb-b9c4-4546-b58e-a61dc46d9dad" />
+<img width="1446" alt="permutations" src="https://github.com/user-attachments/assets/9f7cf677-88d3-4c18-9b7e-e563d91de7c9" />
 
 
 # Sub Arrays
@@ -283,7 +283,7 @@ Conversly while generating subsets,
 
 :small_orange_diamond: Here, is the comparison between all possible subset generation (on the left) and the all subarray generation (on the right) backtracking functions. :small_orange_diamond:
 
-<img width="1446" alt="Screenshot 2025-07-10 at 5 57 09 PM" src="https://github.com/user-attachments/assets/0ea2dcab-57c0-4181-8c82-9d65898ef49d" />
+<img width="1446" alt="subarrays" src="https://github.com/user-attachments/assets/2bb625b5-86ad-4f88-89b7-0253907d9989" />
 
 > The reason we do not have any for loop inside the backtrack function that, once the entire array is traversed from the start'th index till the end, we want to backtrack all the way up to the 'start'. If we don't and stop somewhere before and keep exploring further down, then we will skip items in our generated subarrays. Which is not valid to be a subarray. That is why we are returning all the way to the 'start' index.
 
@@ -307,7 +307,8 @@ Partitioning is like,
 
 :small_orange_diamond: Here, is the comparison between all possible subset generation (on the left) and the string partitioning (on the right) backtracking functions. :small_orange_diamond:
 
-<img width="1446" alt="partition" src="https://github.com/user-attachments/assets/bac75084-f37b-4eb5-bb96-c77e2099cbec" />
+<img width="1446" alt="stringpartitioning" src="https://github.com/user-attachments/assets/8b2ed9f7-fb48-4334-a145-c161c2c416c0" />
+
 
 > The `end` index represents the split point, that means the ending of the current partition and the starting of the next partition.
 
