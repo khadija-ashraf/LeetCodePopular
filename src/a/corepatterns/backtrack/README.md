@@ -2,12 +2,12 @@
 
 The top classic backtracking problems are, Subsets, Combinations, Permutations, SubArrays, String Partitioning, Constraints Solving, Unique paths, Grid Paths, so on. When we nail down the fundamental pattern of building a backtracking solution, that is our key to success in coding many more backtracking problems.
 
-In this article, my target is to introduce the different nature of travarsals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic function to solve different problems. 
+In this article, my target is to introduce the different nature of traversals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic function to solve different problems. 
 
 There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. The topic progression is somewhat, 
 > subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
 
-My recommendation to you for reading this turorial is, read sequentially... 😃
+My recommendation to you for reading this tutorial is, read sequentially... 😃
 
 ## What is Backtracking? 
 
@@ -51,7 +51,7 @@ Below, is the subset-tree for walking through the item-maze: [1, 2, 3]. Keep an 
 - step back from the current item [1] → []
 
 
-The square braket arrays generated during walking through the item-maze [1, 2, 3] are:
+The square bracket arrays generated during walking through the item-maze [1, 2, 3] are:
 
 `[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]`
 Okay, wait, aren't these arrays same as the powerset of the items [1, 2, 3]? Exactly, We just generated all possible subsets of the items [1, 2, 3].
@@ -115,9 +115,9 @@ public class Backtrack101 {
 }
 ```
 
-> Tip: to better understand the recursive flow of each topics, keep an eye on the trees demonstrater in this article.
+> Tip: to better understand the recursive flow of each topics, keep an eye on the trees demonstrated in this article.
 
-# All Possbile Subsets
+# All Possible Subsets
 Backtrack101 is almost the [Leetcode 78. Subsets](https://leetcode.com/problems/subsets/description/) with only change in the return type. Leetcode asks to return the list of subsets that we generated along the way. For collecting all the subsets we can keep a list of lists. Below is the comparison of Backtrack101 (on the left) implementation with Leetcode 78 (on the right). We will be using the AllPossibleSubsets class as our backtrack template for subsequent topics(combinations, permutations, subarray, partitioning. so on).
 
 <img width="1400" alt="subsets" src="https://github.com/user-attachments/assets/86cff1ed-2ff0-4971-b4ed-90ad628cbb2f" />
@@ -135,9 +135,9 @@ For example: items = {1,2,3};  k = 2;  list of combinations: [[1, 2], [1, 3], [2
 
 Since we have a subset-size restrictions, therefore, while building a subset we can check if the `currentList` size meets the size restriction, if yes we add the `currentList` in the result list otherwise move on.  This is similar to walking in the maze, the restriction means keep walking forward until you reach k-steps or hit a wall.
 
-> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our combination generation backtracking function.
+> The class Leetcode78 for All Possible Subsets is our base pattern for writing our combination generation backtracking function.
 
-Below is the comparison view of the All Possbile Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, which means there are not enough items available for building a k-size subset. In the second base case, as the size of the currentList of items matches to k `k == currentList.size()` we add this currentList to the results.
+Below is the comparison view of the All Possible Subsets generation (on the left) and the Combinations generation implementation(on the right). As the first base case shows `(k > item.length)`, we return if the k is grater than the size of the items, which means there are not enough items available for building a k-size subset. In the second base case, as the size of the currentList of items matches to k `k == currentList.size()` we add this currentList to the results.
 
 <img width="1446" alt="combinations" src="https://github.com/user-attachments/assets/1ecba9a4-35a9-42c9-b4fa-965504995ea6" />
 
@@ -146,9 +146,9 @@ Below is the comparison view of the All Possbile Subsets generation (on the left
 `Output: [[1, 2], [1, 3], [2, 3]]`
 
 # Permutations
-The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrariry in all possible subsets, a sublist can be of any size between [0...n]
+The fundamental difference between all possible subset generation and the permutation is, every element is added and again removed in subset generation, whereas every position is used and then released to ensure unique arrangements in the permutation generation process. Additionally, in permutations every sublist size must be equal to the size of the input array, contrarily in all possible subsets, a sublist can be of any size between [0...n]
 
-> Permutation is basically all possible rearrangments of all the elements in the input array. For example, for a given array [1,2]; the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
+> Permutation is basically all possible rearrangements of all the elements in the input array. For example, for a given array [1,2]; the [1,2] and [2,1] are two different arrangements of the same set of elements, so they are considered as two valid permutations.
 
 Below tree shows all possible arrangements of items [1,2,3]. Only the green tick marked sublists are the valid permutations.
 	Start: []
@@ -190,7 +190,7 @@ Below tree shows all possible arrangements of items [1,2,3]. Only the green tick
 `Input: items = [1,2,3]`
 `Output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]`
 
-[Leetcode 46. Permutations](https://leetcode.com/problems/permutations/description/) asks to generate all possible permuations. Below is the java solution for this problem. We use our classical all possible subset generation template from Leetcode 78, with an extra boolean array indicating which items have been used for generating the `currentList`. `currentList` represents a forward path that we walked until some point. `currentList` keeps growing every recursion step, and when it becomes the size of the input array it is then added in the result list.
+[Leetcode 46. Permutations](https://leetcode.com/problems/permutations/description/) asks to generate all possible permutations. Below is the java solution for this problem. We use our classical all possible subset generation template from Leetcode 78, with an extra boolean array indicating which items have been used for generating the `currentList`. `currentList` represents a forward path that we walked until some point. `currentList` keeps growing every recursion step, and when it becomes the size of the input array it is then added in the result list.
 
 ```java
 package backtrack;
@@ -246,7 +246,7 @@ Below is the comparison between all possible subset (on the left) and the permut
 - Only continuous elements are allowed.
 - The order must be preserved.
 
-Conversly while generating subsets, 
+Conversely while generating subsets, 
 - Elements can be skipped (not contiguous).
 - Order doesn’t matter in pure combinatorics (though order is often preserved in our backtracking path)
 
@@ -274,9 +274,9 @@ Conversly while generating subsets,
 `Input: items = [1,2,3]`
 `Output: [[1], [1, 2], [1, 2, 3], [2], [2, 3], [3]]`
 
-> The class Leetcode78 for All Possbile Subsets is our base pattern for writing our subarray generating backtracking function.
+> The class Leetcode78 for All Possible Subsets is our base pattern for writing our subarray generating backtracking function.
 
-> Unlike generation of all possible subsets, for generating subarrays, once we start walking forward we don't walk backwards until raching at the end of the array. This ensures the (1) original order of the items are preserved, also (2) we are no skipping any item.
+> Unlike generation of all possible subsets, for generating subarrays, once we start walking forward we don't walk backwards until reaching at the end of the array. This ensures the (1) original order of the items are preserved, also (2) we are no skipping any item.
 
 - starting at every single index in the input array we walk forward through every elements until the end of the array, and don't walk backwards.
 - and keep adding the current element in the `currentList`. As soon as we step on a new element we add that element to the `currentList`, and add the `currentList` to the result list. We return when we hit the wall that is we reach to the end of the array.
@@ -291,7 +291,7 @@ Conversly while generating subsets,
 
 
 # String Partitioning
-Likewise, all-subarray generation string partitioning is also a core concepts to successfuly implement many string manipulation problems.
+Likewise, all-subarray generation string partitioning is also a core concepts to successfully implement many string manipulation problems.
 
 ### What is String Partitioning?
 
@@ -312,6 +312,22 @@ Partitioning is like,
 
 > The `end` index represents the split point, that means the ending of the current partition and the starting of the next partition.
 
+
+# Cartesian Product
+
+### What is Cartesian Product?
+
+> The Cartesian product of multiple lists is the set of all possible tuples where you take one element from each list. For [[1, 2], [3, 4]], the Cartesian product is: [1, 3], [1, 4], [2, 3], [2, 4]
+
+> We step deeper until the number of elements in the path equals the number of lists.
+
+> Cartesian product is most similar to “multi-level combinations”.
+
+> [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/) is a real life cartesian product generation problem.
+
+:star: Below, is a comparison view of Combinations, and Cartesian Production generation backtracking functions. :star:
+
+<img width="1442" alt="cartesianproduct" src="https://github.com/user-attachments/assets/0b8854fa-361a-4c42-820e-554fb54a1b18" />
 
 
 
