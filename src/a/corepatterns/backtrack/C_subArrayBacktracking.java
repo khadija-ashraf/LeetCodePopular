@@ -10,6 +10,7 @@ public class C_subArrayBacktracking {
 		
 //		for(int i = currentIdx; i < n.length; i++) {
 			currentList.add(n[currentIdx]);
+			System.out.println(currentList);
 			result.add(new ArrayList<Integer>(currentList));
 			subArray(n, startIndex, currentIdx + 1, currentList, result);
 			currentList.remove(currentList.size() - 1); // removing the last item

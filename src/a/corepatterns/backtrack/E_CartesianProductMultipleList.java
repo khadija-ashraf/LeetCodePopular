@@ -11,7 +11,8 @@ public class E_CartesianProductMultipleList {
 
     private static <T> void backtrack(List<List<T>> lists, 
     		List<List<T>> result, 
-    		List<T> current, int currentLevel) {
+    		List<T> current, 
+    		int currentLevel) {
     	
         if (currentLevel == lists.size()) {
             result.add(new ArrayList<>(current));
@@ -31,8 +32,8 @@ public class E_CartesianProductMultipleList {
     // Sample usage
     public static void main(String[] args) {
         List<List<Character>> input = new ArrayList<>();
-        input.add(Arrays.asList('1', '2', '3'));
-        input.add(Arrays.asList('x', 'y', 'z'));
+        input.add(Arrays.asList('a', 'b', 'c'));
+        input.add(Arrays.asList('d', 'e', 'f'));
 
         List<List<Character>> product = cartesianProduct(input);
 
