@@ -5,7 +5,7 @@ The top classic backtracking problems are, Subsets, Combinations, Permutations, 
 In this article, my target is to introduce the different nature of traversals in backtracking along with the coding patterns. Gradually, when we get the knack of writing a basic `backtrack`  we will tweak that basic function to solve different problems. 
 
 There is a progression of learning in this this tutorial, a later topic is built upon the concept of an earlier topic. The topic progression is somewhat, 
-> subsets → combination → permutation →sub array →string partitioning →cartesian product → multiple string combination → and more. 
+> subsets → combination → permutation →sub array →string partitioning → cartesian product. 
 
 My recommendation to you for reading this tutorial is, read sequentially... 😃
 
